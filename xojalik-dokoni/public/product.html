@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahsulot — Qurilish Bazasi</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="/" class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-col">Qurilish Bazasi<span class="brand-sub">xo'jalik mollari do'koni</span></span>
+    </a>
+    <div class="nav-right">
+      <nav class="nav-links" id="navLinks">
+        <a href="/">Katalog</a>
+        <a href="/api-hujjat">API</a>
+      </nav>
+      <button class="cart-icon-btn" id="openCartHeaderBtn" title="Savat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="cart-badge" id="cartCountBadge">0</span>
+      </button>
+      <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Menyu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <a href="/" class="back-link">← Katalogga qaytish</a>
+  <div class="detail" id="detailWrap">
+    <!-- JS orqali to'ldiriladi -->
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Qurilish Bazasi. Barcha huquqlar himoyalangan.</span>
+    <span><a href="/api-hujjat">Ochiq API hujjati →</a></span>
+  </div>
+</footer>
+
+<!-- Buyurtma modal oynasi -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <button class="modal-close" id="closeModal">✕</button>
+    <div id="orderFormPanel">
+      <h2>Buyurtma so'rovi</h2>
+      <p class="modal-sub" id="modalProductName"></p>
+      <form id="orderForm">
+        <div class="field">
+          <label>Ismingiz</label>
+          <input type="text" id="mijoz_ismi" required placeholder="Masalan: Aziz Karimov">
+        </div>
+        <div class="field">
+          <label>Telefon raqamingiz</label>
+          <input type="tel" id="telefon" required placeholder="+998 90 123 45 67">
+        </div>
+        <div class="field">
+          <label>Miqdori</label>
+          <input type="number" id="miqdor" required min="1" value="1">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="submitOrderBtn">Buyurtma berish</button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
+    <div id="orderSuccessPanel" style="display:none">
+      <div class="success-panel">
+        <div class="check">✓</div>
+        <h2>Buyurtmangiz qabul qilindi</h2>
+        <p class="modal-sub" id="singleOrderSuccessSub">Tez orada operatorlarimiz siz bilan bog'lanadi.</p>
+        <button class="btn btn-secondary btn-block" id="closeSuccessBtn">Yopish</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/cart.js"></script>
+<script src="/product.js"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin panel — Qurilish Bazasi</title>
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+
+<!-- ============ LOGIN EKRANI ============ -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <div class="brand" style="justify-content:center;margin-bottom:22px">
+      <span class="brand-mark"></span>
+      <span class="brand-col">Qurilish Bazasi<span class="brand-sub">admin panel</span></span>
+    </div>
+    <form id="loginForm">
+      <div class="field">
+        <label>Login</label>
+        <input type="text" id="loginUsername" required autocomplete="username" placeholder="admin">
+      </div>
+      <div class="field">
+        <label>Parol</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Kirish</button>
+      <div class="form-msg" id="loginMsg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ ADMIN PANEL ============ -->
+<div id="adminScreen" class="admin-screen" style="display:none">
+  <header class="site-header">
+    <div class="wrap">
+      <a href="/" class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-col">Qurilish Bazasi<span class="brand-sub">admin panel</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="/" target="_blank">Saytni ko'rish ↗</a>
+        <button class="btn btn-secondary btn-sm" id="logoutBtn">Chiqish</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap admin-wrap">
+
+    <!-- Statistika kartalari -->
+    <div class="stats-row" id="statsRow"></div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="products">Mahsulotlar</button>
+      <button class="admin-tab" data-tab="orders">Buyurtmalar <span class="tab-badge" id="ordersBadge" style="display:none">0</span></button>
+      <button class="admin-tab" data-tab="settings">Sozlamalar</button>
+    </div>
+
+    <!-- ---------- MAHSULOTLAR TAB ---------- -->
+    <div class="tab-panel" id="tab-products">
+      <div class="panel-toolbar">
+        <div class="search-box" style="max-width:320px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="adminSearch" placeholder="Nomi yoki kategoriya bo'yicha qidirish...">
+        </div>
+        <button class="btn btn-primary" id="addProductBtn">+ Mahsulot qo'shish</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="admin-table" id="productsTable">
+          <thead>
+            <tr>
+              <th>Rasm</th>
+              <th>Nomi</th>
+              <th>Kategoriya</th>
+              <th>Birlik</th>
+              <th>Narx (so'm)</th>
+              <th>Ombordagi soni</th>
+              <th>Holat</th>
+              <th>Yangilangan</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="productsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ---------- BUYURTMALAR TAB ---------- -->
+    <div class="tab-panel" id="tab-orders" style="display:none">
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Mahsulot</th>
+              <th>Mijoz</th>
+              <th>Telefon</th>
+              <th>Miqdor</th>
+              <th>Sana</th>
+              <th>Holat</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ---------- SOZLAMALAR TAB ---------- -->
+    <div class="tab-panel" id="tab-settings" style="display:none">
+      <div class="settings-card">
+        <h3 style="text-transform:none;font-size:18px;margin-bottom:14px">Parolni o'zgartirish</h3>
+        <form id="changePasswordForm" style="max-width:360px">
+          <div class="field">
+            <label>Joriy parol</label>
+            <input type="password" id="currentPassword" required>
+          </div>
+          <div class="field">
+            <label>Yangi parol</label>
+            <input type="password" id="newPassword" required minlength="4">
+          </div>
+          <button type="submit" class="btn btn-primary">Saqlash</button>
+          <div class="form-msg" id="passwordMsg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MAHSULOT QO'SHISH/TAHRIRLASH MODAL ============ -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal" style="max-width:520px">
+    <button class="modal-close" id="closeProductModal">✕</button>
+    <h2 id="productModalTitle">Mahsulot qo'shish</h2>
+    <form id="productForm" style="margin-top:18px">
+      <input type="hidden" id="p_id">
+      <div class="field">
+        <label>Nomi</label>
+        <input type="text" id="p_nomi" required placeholder="Masalan: Silikat g'isht">
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label>Kategoriya</label>
+          <input type="text" id="p_kategoriya" required placeholder="Masalan: G'isht" list="categoryList">
+          <datalist id="categoryList"></datalist>
+        </div>
+        <div class="field">
+          <label>Birlik</label>
+          <input type="text" id="p_birlik" required placeholder="dona / qop / m³ / kg">
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label>Narx (so'm)</label>
+          <input type="number" id="p_narx" required min="0" step="1">
+        </div>
+        <div class="field">
+          <label>Ombordagi soni</label>
+          <input type="number" id="p_ombordagi_soni" required min="0" step="1">
+        </div>
+      </div>
+      <div class="field">
+        <label>Rasm</label>
+        <input type="file" id="p_rasm_file" accept="image/*">
+        <input type="hidden" id="p_rasm_url">
+        <div id="rasmPreview" class="rasm-preview"></div>
+      </div>
+      <div class="field">
+        <label>Tavsif</label>
+        <textarea id="p_tavsif" rows="3" placeholder="Qisqa tavsif..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="saveProductBtn">Saqlash</button>
+      <div class="form-msg" id="productFormMsg"></div>
+    </form>
+  </div>
+</div>
+
+<script src="/admin/admin.js"></script>
+</body>
+</html>

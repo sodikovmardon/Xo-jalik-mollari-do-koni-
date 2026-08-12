@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qurilish Bazasi — Xo'jalik mollari do'koni</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="/" class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-col">Qurilish Bazasi<span class="brand-sub">xo'jalik mollari do'koni</span></span>
+    </a>
+    <div class="nav-right">
+      <nav class="nav-links" id="navLinks">
+        <a href="/" class="active">Katalog</a>
+        <a href="/api-hujjat">API</a>
+      </nav>
+      <button class="cart-icon-btn" id="openCartHeaderBtn" title="Savat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="cart-badge" id="cartCountBadge">0</span>
+      </button>
+      <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Menyu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Ombordagi qoldiq real vaqtda yangilanadi</span>
+    <h1>Qurilish uchun kerakli <span>hamma narsa</span> bitta joyda.</h1>
+    <p>G'isht, sement, qum, asbob-uskuna va elektr materiallari — narxi va ombordagi qoldig'i bilan. Mahsulotni tanlang va buyurtma so'rovini qoldiring, biz siz bilan bog'lanamiz.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Mahsulot qidirish (masalan: sement)...">
+    </div>
+  </div>
+  <div class="category-pills" id="categoryPills">
+    <button class="pill active" data-category="">Barchasi</button>
+  </div>
+
+  <div class="grid" id="productGrid">
+    <!-- JS orqali to'ldiriladi -->
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© 2026 Qurilish Bazasi. Barcha huquqlar himoyalangan.</span>
+    <span><a href="/api-hujjat">Ochiq API hujjati →</a></span>
+  </div>
+</footer>
+
+<script src="/cart.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
