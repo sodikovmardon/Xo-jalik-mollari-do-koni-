@@ -10,6 +10,9 @@ const db = require('./db');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Railway (va boshqa reverse-proxy'lar) orqasida X-Forwarded-For to'g'ri ishlashi uchun
+app.set('trust proxy', 1);
+
 // ---------- Middleware ----------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -7,18 +7,22 @@
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+<div id="maintenanceBanner" style="display:none" class="maintenance-banner">Do'kon vaqtincha yopiq, tez orada qaytamiz</div>
 
 <header class="site-header">
   <div class="wrap">
     <a href="/" class="brand">
-      <span class="brand-mark"></span>
-      <span class="brand-col">Qurilish Bazasi<span class="brand-sub">xo'jalik mollari do'koni</span></span>
+      <span class="brand-mark" id="brandMark"><svg id="brandLogo" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#fff;width:100%;height:100%;padding:7px"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg></span>
+      <span class="brand-col"><span id="storeName">Qurilish Bazasi</span><span class="brand-sub" id="storeTagline">xo'jalik mollari do'koni</span></span>
     </a>
     <div class="nav-right">
       <nav class="nav-links" id="navLinks">
         <a href="/" class="active">Katalog</a>
-        <a href="/api-hujjat">API</a>
       </nav>
+      <a href="#" class="studio-back hidden" id="studioBackLink" title="Uy Loyiha Studio'ga qaytish">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Uy Loyiha Studio
+      </a>
       <button class="cart-icon-btn" id="openCartHeaderBtn" title="Savat">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
@@ -27,22 +31,44 @@
         </svg>
         <span class="cart-badge" id="cartCountBadge">0</span>
       </button>
-      <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Menyu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
     </div>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
-    <span class="hero-eyebrow">Ombordagi qoldiq real vaqtda yangilanadi</span>
-    <h1>Qurilish uchun kerakli <span>hamma narsa</span> bitta joyda.</h1>
-    <p>G'isht, sement, qum, asbob-uskuna va elektr materiallari — narxi va ombordagi qoldig'i bilan. Mahsulotni tanlang va buyurtma so'rovini qoldiring, biz siz bilan bog'lanamiz.</p>
+    <div id="studioArrival" class="studio-arrival hidden" role="status">
+      <span class="sa-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></span>
+      <span class="sa-text">Uy Loyiha Studio'dan kelgan mijozlarga — barcha mahsulotlar kalkulyatordagi narxlar bilan <b>sinxron</b> yangilanadi.</span>
+      <button class="sa-close" id="studioArrivalClose" aria-label="Yopish">✕</button>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <span class="hero-eyebrow">Ombordagi qoldiq real vaqtda yangilanadi</span>
+        <h1>Qurilish uchun kerakli <span>hamma narsa</span> bitta joyda.</h1>
+        <p>G'isht, sement, qum, asbob-uskuna va elektr materiallari — narxi va ombordagi qoldig'i bilan. Mahsulotni tanlang va buyurtma so'rovini qoldiring, biz siz bilan bog'lanamiz.</p>
+        <div class="hero-stats">
+          <div class="hero-stat glass-surface">
+            <span class="hero-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span>
+            <span class="hero-stat-value" id="statProducts">0+</span>
+            <span class="hero-stat-label">mahsulot katalogda</span>
+          </div>
+          <div class="hero-stat glass-surface">
+            <span class="hero-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+            <span class="hero-stat-value">7</span>
+            <span class="hero-stat-label">kategoriya bo'limi</span>
+          </div>
+          <div class="hero-stat glass-surface">
+            <span class="hero-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+            <span class="hero-stat-value">24 soat</span>
+            <span class="hero-stat-label">ichida javob</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=70&fit=crop" alt="Qurilish materiallari ombori" loading="lazy">
+      </div>
+    </div>
   </div>
 </section>
 
@@ -50,11 +76,15 @@
   <div class="toolbar">
     <div class="search-box">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" id="searchInput" placeholder="Mahsulot qidirish (masalan: sement)...">
+      <input type="text" id="searchInput" placeholder="Mahsulot qidirish (masalan: sement)..." autocomplete="off">
+      <button class="search-clear" id="searchClearBtn" aria-label="Tozalash">✕</button>
     </div>
+    <div class="result-count" id="resultCount" style="display:none"></div>
   </div>
-  <div class="category-pills" id="categoryPills">
-    <button class="pill active" data-category="">Barchasi</button>
+  <div class="category-pills-wrap">
+    <div class="category-pills" id="categoryPills">
+      <button class="pill active" data-category="">Barchasi</button>
+    </div>
   </div>
 
   <div class="grid" id="productGrid">
@@ -64,8 +94,27 @@
 
 <footer class="site-footer">
   <div class="wrap">
+    <div class="footer-brand">
+      <span class="footer-logo" id="footerLogo"></span>
+      <div>
+        <span class="footer-name" id="footerName">Qurilish Bazasi</span>
+        <span class="footer-desc">Xo'jalik va qurilish mollari do'koni. Narxlar va ombordagi qoldiq har kuni yangilanadi.</span>
+      </div>
+    </div>
+    <div class="footer-contacts">
+      <span class="footer-label">Bog'lanish</span>
+      <a href="tel:+998979041820" id="footerPhone">+998 97 904 18 20</a>
+      <span id="footerTelegram">Telegram: @mardonsodikov</span>
+      <span id="footerAddress" style="display:none"></span>
+      <span id="footerHours" style="display:none"></span>
+      <a href="#" class="footer-studio hidden" id="footerStudioLink">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Uy Loyiha Studio — hisob-kitobga qaytish
+      </a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
     <span>© 2026 Qurilish Bazasi. Barcha huquqlar himoyalangan.</span>
-    <span><a href="/api-hujjat">Ochiq API hujjati →</a></span>
   </div>
 </footer>
 

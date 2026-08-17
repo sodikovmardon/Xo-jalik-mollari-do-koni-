@@ -76,6 +76,8 @@ function openModal() {
   document.getElementById('orderModal').classList.add('open');
   document.getElementById('orderFormPanel').style.display = 'block';
   document.getElementById('orderSuccessPanel').style.display = 'none';
+  const tel = document.getElementById('telefon');
+  if (!tel.value) tel.value = '+998 ';
 }
 function closeModal() {
   document.getElementById('orderModal').classList.remove('open');
@@ -87,6 +89,10 @@ document.getElementById('orderModal').addEventListener('click', (e) => {
 });
 document.getElementById('closeSuccessBtn').addEventListener('click', closeModal);
 
+if (typeof initPhoneMask === 'function') {
+  initPhoneMask(document.getElementById('telefon'));
+}
+
 document.getElementById('orderForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = document.getElementById('submitOrderBtn');
@@ -95,10 +101,28 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
   btn.disabled = true;
   btn.textContent = 'Yuborilmoqda...';
 
+  const telInput = document.getElementById('telefon');
+  if (typeof isValidPhone === 'function' && !isValidPhone(telInput.value)) {
+    msg.textContent = "Telefon raqamini to'liq kiriting (+998 XX XXX XX XX)";
+    msg.classList.add('error', 'show');
+    btn.disabled = false;
+    btn.textContent = 'Buyurtma berish';
+    return;
+  }
+
+  if (document.documentElement.classList.contains('store-closed')) {
+    msg.textContent = "Do'kon hozir yopiq, buyurtma qabul qilinmayapti";
+    msg.classList.add('error', 'show');
+    btn.disabled = false;
+    btn.textContent = 'Buyurtma berish';
+    return;
+  }
+
   const payload = {
     product_id: currentProduct.id,
     mijoz_ismi: document.getElementById('mijoz_ismi').value,
     telefon: document.getElementById('telefon').value,
+    izoh: document.getElementById('izoh').value || undefined,
     miqdor: document.getElementById('miqdor').value
   };
 
@@ -129,4 +153,48 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
   }
 });
 
+// Sozlamalarni qo'llash (nom, tema, accent, yopiq banner)
+async function applySettings() {
+  try {
+    const res = await fetch('/api/v1/settings');
+    const json = await res.json();
+    if (!json.success) return;
+    const s = json.data;
+    const n = document.getElementById('storeName');
+    if (n && s.dokon_nomi) n.textContent = s.dokon_nomi;
+    const t = document.getElementById('storeTagline');
+    if (t && s.qisqa_tavsif) t.textContent = s.qisqa_tavsif;
+    const fn = document.getElementById('footerName');
+    if (fn && s.dokon_nomi) fn.textContent = s.dokon_nomi;
+    const mark = document.getElementById('brandMark');
+    if (mark && s.logotip_url) mark.innerHTML = `<img src="${s.logotip_url}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`;
+    const fl = document.getElementById('footerLogo');
+    if (fl && s.logotip_url) fl.innerHTML = `<img src="${s.logotip_url}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`;
+    const fp = document.getElementById('footerPhone');
+    if (fp && s.telefon) { fp.textContent = s.telefon; fp.href = 'tel:' + s.telefon.replace(/[^0-9+]/g, ''); }
+    const ft = document.getElementById('footerTelegram');
+    if (ft && s.telegram) ft.textContent = s.telegram.startsWith('@') ? 'Telegram: ' + s.telegram : 'Telegram: @' + s.telegram.replace('@', '');
+    const fa = document.getElementById('footerAddress');
+    if (fa && s.manzil) { fa.textContent = s.manzil; fa.style.display = 'block'; }
+    const fh = document.getElementById('footerHours');
+    if (fh && s.ish_vaqti) { fh.textContent = s.ish_vaqti; fh.style.display = 'block'; }
+    document.documentElement.classList.toggle('theme-light', s.tema === 'light');
+    if (s.accent) {
+      document.documentElement.style.setProperty('--accent', s.accent);
+      document.documentElement.style.setProperty('--accent-2', s.accent === '#0a84ff' ? '#4da3ff' : s.accent);
+    }
+    const b = document.getElementById('maintenanceBanner');
+    if (b) b.style.display = s.dokon_yopiq ? 'block' : 'none';
+    if (s.dokon_yopiq) document.documentElement.classList.add('store-closed');
+    if (s.studio_url) {
+      const back = document.getElementById('studioBackLink');
+      const foot = document.getElementById('footerStudioLink');
+      if (back) { back.href = s.studio_url; back.classList.remove('hidden'); }
+      if (foot) { foot.href = s.studio_url; foot.classList.remove('hidden'); }
+    }
+    return s;
+  } catch (e) { return null; }
+}
+
+applySettings();
 loadProduct();

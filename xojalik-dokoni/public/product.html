@@ -7,18 +7,22 @@
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+<div id="maintenanceBanner" style="display:none" class="maintenance-banner">Do'kon vaqtincha yopiq, tez orada qaytamiz</div>
 
 <header class="site-header">
   <div class="wrap">
     <a href="/" class="brand">
-      <span class="brand-mark"></span>
-      <span class="brand-col">Qurilish Bazasi<span class="brand-sub">xo'jalik mollari do'koni</span></span>
+      <span class="brand-mark" id="brandMark"></span>
+      <span class="brand-col"><span id="storeName">Qurilish Bazasi</span><span class="brand-sub" id="storeTagline">xo'jalik mollari do'koni</span></span>
     </a>
     <div class="nav-right">
       <nav class="nav-links" id="navLinks">
         <a href="/">Katalog</a>
-        <a href="/api-hujjat">API</a>
       </nav>
+      <a href="#" class="studio-back hidden" id="studioBackLink" title="Uy Loyiha Studio'ga qaytish">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Uy Loyiha Studio
+      </a>
       <button class="cart-icon-btn" id="openCartHeaderBtn" title="Savat">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
@@ -26,13 +30,6 @@
           <path d="M16 10a4 4 0 0 1-8 0"/>
         </svg>
         <span class="cart-badge" id="cartCountBadge">0</span>
-      </button>
-      <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Menyu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
       </button>
     </div>
   </div>
@@ -47,8 +44,27 @@
 
 <footer class="site-footer">
   <div class="wrap">
+    <div class="footer-brand">
+      <span class="footer-logo" id="footerLogo"></span>
+      <div>
+        <span class="footer-name" id="footerName">Qurilish Bazasi</span>
+        <span class="footer-desc">Xo'jalik va qurilish mollari do'koni. Narxlar va ombordagi qoldiq har kuni yangilanadi.</span>
+      </div>
+    </div>
+    <div class="footer-contacts">
+      <span class="footer-label">Bog'lanish</span>
+      <a href="tel:+998979041820" id="footerPhone">+998 97 904 18 20</a>
+      <span id="footerTelegram">Telegram: @mardonsodikov</span>
+      <span id="footerAddress" style="display:none"></span>
+      <span id="footerHours" style="display:none"></span>
+      <a href="#" class="footer-studio hidden" id="footerStudioLink">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Uy Loyiha Studio — hisob-kitobga qaytish
+      </a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
     <span>© 2026 Qurilish Bazasi. Barcha huquqlar himoyalangan.</span>
-    <span><a href="/api-hujjat">Ochiq API hujjati →</a></span>
   </div>
 </footer>
 
@@ -66,11 +82,15 @@
         </div>
         <div class="field">
           <label>Telefon raqamingiz</label>
-          <input type="tel" id="telefon" required placeholder="+998 90 123 45 67">
+          <input type="tel" id="telefon" required placeholder="+998 90 123 45 67" inputmode="tel" autocomplete="tel">
         </div>
         <div class="field">
           <label>Miqdori</label>
           <input type="number" id="miqdor" required min="1" value="1">
+        </div>
+        <div class="field">
+          <label>Izoh (ixtiyoriy)</label>
+          <input type="text" id="izoh" placeholder="Masalan: qurilish maydonchasiga yetkazish" autocomplete="off">
         </div>
         <button type="submit" class="btn btn-primary btn-block" id="submitOrderBtn">Buyurtma berish</button>
         <div class="form-msg" id="formMsg"></div>

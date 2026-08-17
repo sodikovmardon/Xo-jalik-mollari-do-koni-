@@ -2,6 +2,27 @@
 
 const cartPriceFmt = new Intl.NumberFormat('uz-UZ');
 
+// O'zbek telefon raqami uchun input maskasi: +998 XX XXX XX XX
+function initPhoneMask(input) {
+  if (!input) return;
+  input.addEventListener('input', () => {
+    let digits = input.value.replace(/\D/g, '');
+    if (digits.startsWith('998')) digits = digits.slice(3);
+    if (digits.length > 9) digits = digits.slice(0, 9);
+
+    let out = '+998';
+    if (digits.length > 0) out += ' ' + digits.slice(0, 2);
+    if (digits.length > 2) out += ' ' + digits.slice(2, 5);
+    if (digits.length > 5) out += ' ' + digits.slice(5, 7);
+    if (digits.length > 7) out += ' ' + digits.slice(7, 9);
+    input.value = out;
+  });
+}
+
+function isValidPhone(phone) {
+  return /^\+998 \d{2} \d{3} \d{2} \d{2}$/.test(phone);
+}
+
 function getCart() {
   try {
     const raw = localStorage.getItem('qurilish_cart');
@@ -120,7 +141,11 @@ function injectCartDrawerHTML() {
           </div>
           <div class="field">
             <label>Telefon raqamingiz</label>
-            <input type="tel" id="cart_telefon" required placeholder="+998 90 123 45 67">
+            <input type="tel" id="cart_telefon" required placeholder="+998 90 123 45 67" inputmode="tel" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label>Izoh (ixtiyoriy)</label>
+            <input type="text" id="cart_izoh" placeholder="Masalan: qurilish maydonchasiga yetkazish" autocomplete="off">
           </div>
           <button type="submit" class="btn btn-primary btn-block" id="cartSubmitBtn" style="margin-top:12px">Buyurtmani tasdiqlash</button>
           <div class="form-msg" id="cartFormMsg"></div>
@@ -162,6 +187,8 @@ function showCartView(viewId) {
   });
 }
 
+let lastCartCount = -1;
+
 function updateCartUI() {
   const count = getCartTotalCount();
 
@@ -173,7 +200,14 @@ function updateCartUI() {
     } else {
       el.classList.remove('has-items');
     }
+    // pop/bounce animation on change
+    if (count !== lastCartCount) {
+      el.classList.remove('bump');
+      void el.offsetWidth; // restart animation
+      el.classList.add('bump');
+    }
   });
+  lastCartCount = count;
 
   const wrap = document.getElementById('cartItemsWrap');
   if (!wrap) return;
@@ -225,6 +259,8 @@ function bindCartDrawerEvents() {
   });
   document.getElementById('closeCartSuccessBtn').addEventListener('click', closeCartDrawer);
 
+  initPhoneMask(document.getElementById('cart_telefon'));
+
   document.getElementById('cartCheckoutBtn').addEventListener('click', () => {
     const cart = getCart();
     if (cart.length === 0) return;
@@ -268,9 +304,27 @@ function bindCartDrawerEvents() {
       return;
     }
 
+    if (document.documentElement.classList.contains('store-closed')) {
+      msg.textContent = "Do'kon hozir yopiq, buyurtma qabul qilinmayapti";
+      msg.classList.add('error', 'show');
+      btn.disabled = false;
+      btn.textContent = 'Buyurtmani tasdiqlash';
+      return;
+    }
+
+    const telefonInput = document.getElementById('cart_telefon');
+    if (!isValidPhone(telefonInput.value)) {
+      msg.textContent = "Telefon raqamini to'liq kiriting (+998 XX XXX XX XX)";
+      msg.classList.add('error', 'show');
+      btn.disabled = false;
+      btn.textContent = 'Buyurtmani tasdiqlash';
+      return;
+    }
+
     const payload = {
       mijoz_ismi: document.getElementById('cart_mijoz_ismi').value,
       telefon: document.getElementById('cart_telefon').value,
+      izoh: document.getElementById('cart_izoh').value || undefined,
       items: cart.map(item => ({
         product_id: item.id,
         miqdor: item.miqdor
@@ -320,13 +374,4 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('#openCartHeaderBtn, .cart-icon-btn').forEach(btn => {
     btn.addEventListener('click', openCartDrawer);
   });
-
-  // Attach click handler to hamburger menu toggle
-  const menuToggle = document.getElementById('menuToggleBtn');
-  const navLinks = document.getElementById('navLinks');
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-    });
-  }
 });

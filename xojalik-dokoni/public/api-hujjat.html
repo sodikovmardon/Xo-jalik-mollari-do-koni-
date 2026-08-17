@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>API hujjati — Qurilish Bazasi</title>
 <link rel="stylesheet" href="/styles.css">
 <style>
@@ -44,23 +45,7 @@
     <div class="nav-right">
       <nav class="nav-links" id="navLinks">
         <a href="/">Katalog</a>
-        <a href="/api-hujjat" class="active">API</a>
       </nav>
-      <button class="cart-icon-btn" id="openCartHeaderBtn" title="Savat">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
-        <span class="cart-badge" id="cartCountBadge">0</span>
-      </button>
-      <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Menyu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
     </div>
   </div>
 </header>
@@ -244,8 +229,21 @@ Content-Type: application/json
 
 <footer class="site-footer">
   <div class="wrap">
-    <span>© 2026 Qurilish Bazasi. Barcha huquqlar himoyalangan.</span>
-    <span><a href="/">← Katalogga qaytish</a></span>
+    <div class="footer-brand">
+      <span class="footer-logo"></span>
+      <div>
+        <span class="footer-name">Qurilish Bazasi</span>
+        <span class="footer-desc">Xo'jalik va qurilish mollari do'koni. Narxlar va ombordagi qoldiq har kuni yangilanadi.</span>
+      </div>
+    </div>
+    <div class="footer-contacts">
+      <span class="footer-label">Bog'lanish</span>
+      <a href="tel:+998979041820">+998 97 904 18 20</a>
+      <span>Telegram: @mardonsodikov</span>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Qurilish Bazasi. Barcha huquqlar himoyalangan. · <a href="/">Katalogga qaytish</a></span>
   </div>
 </footer>
 

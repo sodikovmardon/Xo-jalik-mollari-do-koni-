@@ -89,42 +89,258 @@
 
     <!-- ---------- BUYURTMALAR TAB ---------- -->
     <div class="tab-panel" id="tab-orders" style="display:none">
+      <!-- Buyurtmalar dashboard statistikasi -->
+      <div class="stats-row" id="orderStatsRow" style="margin-bottom:20px"></div>
+
+      <div class="panel-toolbar orders-toolbar">
+        <div class="search-box" style="max-width:260px;flex:1;min-width:200px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="orderSearch" placeholder="Ism yoki telefon bo'yicha...">
+        </div>
+        <select class="order-filter" id="orderStatusFilter">
+          <option value="Barchasi">Barcha holatlar</option>
+          <option>Yangi</option>
+          <option>Ko'rib chiqilmoqda</option>
+          <option>Tasdiqlangan</option>
+          <option>Yetkazilmoqda</option>
+          <option>Bajarildi</option>
+          <option>Bekor qilindi</option>
+        </select>
+        <input type="date" class="order-filter" id="orderFrom" title="Dan">
+        <input type="date" class="order-filter" id="orderTo" title="Gacha">
+        <select class="order-filter" id="orderSort">
+          <option value="yangi">Eng yangi</option>
+          <option value="eski">Eng eski</option>
+          <option value="summa">Summa bo'yicha</option>
+        </select>
+        <div class="bulk-actions">
+          <select class="order-filter" id="bulkStatusSelect">
+            <option value="">Holatni o'zgartirish...</option>
+            <option>Ko'rib chiqilmoqda</option>
+            <option>Tasdiqlangan</option>
+            <option>Yetkazilmoqda</option>
+            <option>Bajarildi</option>
+            <option>Bekor qilindi</option>
+          </select>
+          <button class="btn btn-secondary btn-sm" id="bulkApplyBtn">Qo'llash</button>
+        </div>
+      </div>
+
       <div class="table-wrap">
-        <table class="admin-table">
+        <table class="admin-table" id="ordersTable">
           <thead>
             <tr>
+              <th style="width:36px"><input type="checkbox" id="orderSelectAll"></th>
               <th>№</th>
-              <th>Mahsulot</th>
               <th>Mijoz</th>
               <th>Telefon</th>
-              <th>Miqdor</th>
+              <th>Mahsulotlar</th>
+              <th>Summa</th>
               <th>Sana</th>
               <th>Holat</th>
+              <th></th>
             </tr>
           </thead>
           <tbody id="ordersTbody"></tbody>
         </table>
+        <div id="ordersSkeleton" class="skeleton-row-wrap" style="display:none">
+          <div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div>
+        </div>
+      </div>
+      <div class="list-footer">
+        <span id="ordersCount" class="result-count"></span>
+        <button class="btn btn-secondary btn-sm" id="loadMoreBtn" style="display:none">Yana yuklash</button>
       </div>
     </div>
 
     <!-- ---------- SOZLAMALAR TAB ---------- -->
     <div class="tab-panel" id="tab-settings" style="display:none">
-      <div class="settings-card">
-        <h3 style="text-transform:none;font-size:18px;margin-bottom:14px">Parolni o'zgartirish</h3>
-        <form id="changePasswordForm" style="max-width:360px">
+      <div class="settings-grid">
+
+        <div class="settings-card glass-surface">
+          <h3>Do'kon ma'lumotlari</h3>
           <div class="field">
-            <label>Joriy parol</label>
-            <input type="password" id="currentPassword" required>
+            <label>Do'kon nomi</label>
+            <input type="text" id="set_dokon_nomi">
           </div>
           <div class="field">
-            <label>Yangi parol</label>
-            <input type="password" id="newPassword" required minlength="4">
+            <label>Qisqa tavsif</label>
+            <input type="text" id="set_qisqa_tavsif">
           </div>
-          <button type="submit" class="btn btn-primary">Saqlash</button>
-          <div class="form-msg" id="passwordMsg"></div>
-        </form>
+          <div class="field">
+            <label>Logotip</label>
+            <input type="file" id="set_logotip_file" accept="image/*">
+            <input type="hidden" id="set_logotip">
+            <div id="logoPreview" class="rasm-preview"></div>
+          </div>
+          <div class="two-col">
+            <div class="field">
+              <label>Telefon</label>
+              <input type="text" id="set_telefon">
+            </div>
+            <div class="field">
+              <label>Telegram</label>
+              <input type="text" id="set_telegram">
+            </div>
+          </div>
+          <div class="field">
+            <label>Manzil</label>
+            <input type="text" id="set_manzil">
+          </div>
+          <div class="field">
+            <label>Ish vaqti</label>
+            <input type="text" id="set_ish_vaqti">
+          </div>
+          <div class="field">
+            <label>Uy Loyiha Studio manzili</label>
+            <input type="url" id="set_studio_url" placeholder="https://uy-loyiha-studio.uz/">
+            <small style="color:var(--text-dim)">"Do'konga qaytish" havolasi shu manzilga olib boradi</small>
+          </div>
+          <button class="btn btn-primary" id="saveStoreInfoBtn">Saqlash</button>
+          <div class="form-msg" id="storeInfoMsg"></div>
+        </div>
+
+        <div class="settings-card glass-surface">
+          <h3>Buyurtmalar bilan ishlash</h3>
+          <label class="toggle-row">
+            <input type="checkbox" id="set_yangi_buyurtma_xabar">
+            <span class="toggle-ui"></span>
+            <span>
+              <b>Yangi buyurtmalar haqida xabar</b>
+              <small>Har bir yangi buyurtma kelganda bildirishnoma (email/SMS)</small>
+            </span>
+          </label>
+          <div class="field">
+            <label>Yangi buyurtma holati</label>
+            <select id="set_buyurtma_default_holat">
+              <option>Yangi</option>
+              <option>Ko'rib chiqilmoqda</option>
+              <option>Tasdiqlangan</option>
+            </select>
+          </div>
+          <label class="toggle-row">
+            <input type="checkbox" id="set_yashir_tugagan">
+            <span class="toggle-ui"></span>
+            <span>
+              <b>Tugagan mahsulotlarni yashirish</b>
+              <small>Ombordagi qoldiq 0 bo'lganda mahsulot saytda ko'rinmaydi</small>
+            </span>
+          </label>
+          <div class="field">
+            <label>Kam qoldi chegarasi</label>
+            <input type="number" id="set_kam_qoldi_chegara" min="1">
+            <small class="field-hint">Shu sondan kam qoldiq "Kam qoldi" deb belgilanadi</small>
+          </div>
+          <button class="btn btn-primary" id="saveOrderPrefsBtn">Saqlash</button>
+          <div class="form-msg" id="orderPrefsMsg"></div>
+        </div>
+
+        <div class="settings-card glass-surface">
+          <h3>Kategoriyalar</h3>
+          <div id="categoryManager"></div>
+        </div>
+
+        <div class="settings-card glass-surface">
+          <h3>API va integratsiya</h3>
+          <div class="field">
+            <label>API base URL</label>
+            <div class="copy-row">
+              <input type="text" id="set_api_base_url" readonly>
+              <button class="btn btn-secondary btn-sm" id="copyApiUrlBtn">Nusxalash</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>API kalit</label>
+            <div class="copy-row">
+              <input type="text" id="set_api_kalit" readonly>
+              <button class="btn btn-secondary btn-sm" id="copyApiKeyBtn">Nusxalash</button>
+            </div>
+          </div>
+          <label class="toggle-row">
+            <input type="checkbox" id="set_api_ochiq">
+            <span class="toggle-ui"></span>
+            <span>
+              <b>Ommaviy API ruxsat</b>
+              <small>Integratsiyalar uchun /api/v1/* ochiq bo'lsin</small>
+            </span>
+          </label>
+          <button class="btn btn-secondary" id="regenerateKeyBtn">Kalitni yangilash</button>
+          <div class="form-msg" id="apiMsg"></div>
+        </div>
+
+        <div class="settings-card glass-surface">
+          <h3>Ko'rinish</h3>
+          <label class="toggle-row">
+            <input type="checkbox" id="set_tema">
+            <span class="toggle-ui"></span>
+            <span>
+              <b>Yorug' mavzu (light)</b>
+              <small>Saytning umumiy ko'rinishini o'zgartiradi</small>
+            </span>
+          </label>
+          <div class="field">
+            <label>Aksent rangi</label>
+            <div class="swatch-row" id="accentSwatches"></div>
+            <input type="color" id="set_accent" style="display:none">
+          </div>
+          <button class="btn btn-primary" id="saveAppearanceBtn">Saqlash</button>
+          <div class="form-msg" id="appearanceMsg"></div>
+        </div>
+
+        <div class="settings-card glass-surface">
+          <h3>Hisob va xavfsizlik</h3>
+          <form id="changePasswordForm" style="max-width:360px">
+            <div class="field">
+              <label>Joriy parol</label>
+              <input type="password" id="currentPassword" required autocomplete="current-password">
+            </div>
+            <div class="field">
+              <label>Yangi parol</label>
+              <input type="password" id="newPassword" required minlength="4">
+            </div>
+            <button type="submit" class="btn btn-primary">Parolni o'zgartirish</button>
+            <div class="form-msg" id="passwordMsg"></div>
+          </form>
+          <div class="login-history">
+            <b style="display:block;margin-bottom:10px">Oxirgi kirishlar</b>
+            <div id="loginHistoryList"></div>
+          </div>
+        </div>
+
+        <div class="settings-card danger-zone">
+          <h3>Xavfli hudud</h3>
+          <div class="danger-row">
+            <div>
+              <b>Mahsulotlarni eksport qilish</b>
+              <small>Barcha mahsulotlarni JSON/CSV fayl sifatida yuklab olish</small>
+            </div>
+            <div class="danger-btns">
+              <button class="btn btn-secondary btn-sm" id="exportJsonBtn">JSON</button>
+              <button class="btn btn-secondary btn-sm" id="exportCsvBtn">CSV</button>
+            </div>
+          </div>
+          <div class="danger-row">
+            <div>
+              <b>Do'konni vaqtincha yopish</b>
+              <small>Saytda "Do'kon vaqtincha yopiq" banneri chiqadi, admin panel ishlaydi</small>
+            </div>
+            <label class="toggle-row compact">
+              <input type="checkbox" id="set_dokon_yopiq">
+              <span class="toggle-ui danger"></span>
+            </label>
+          </div>
+        </div>
+
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ============ BUYURTMA TAFSILOTI MODAL ============ -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal order-modal">
+    <button class="modal-close" id="closeOrderModal">✕</button>
+    <div id="orderDetailContent"></div>
   </div>
 </div>
 
