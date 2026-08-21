@@ -141,6 +141,9 @@ p { margin: 0; }
 .theme-light .btn-secondary {
   background: rgba(255, 255, 255, 0.8);
 }
+.theme-light .hero-img::before {
+  background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+}
 .theme-light .badge {
   background: rgba(255, 255, 255, 0.7);
 }
@@ -522,6 +525,16 @@ p { margin: 0; }
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 20px 60px -8px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.12);
   align-self: center;
+  position: relative;
+}
+.hero-img::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 .hero-img img {
   width: 100%;
@@ -536,6 +549,92 @@ p { margin: 0; }
   border-radius: inherit;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 30%);
   pointer-events: none;
+}
+
+/* ---------- Hero CTA row ---------- */
+.hero-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hero-studio-btn svg { flex-shrink: 0; }
+.hero-cta-hint {
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Trust badges ---------- */
+.hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+.trust-item svg { color: var(--ok); flex-shrink: 0; }
+
+/* ---------- "Nega bizni tanlashadi" features ---------- */
+.features {
+  padding: 56px 0 40px;
+}
+.features-heading {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 20px;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  transition: transform 0.25s var(--ease-apple), box-shadow 0.25s var(--ease-apple), border-color 0.25s var(--ease-apple);
+}
+.feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(10, 132, 255, 0.3);
+}
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(10, 132, 255, 0.15), rgba(10, 132, 255, 0.05));
+  color: var(--accent-2);
+}
+.feature-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+.feature-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
 }
 
 /* ---------- Toolbar ---------- */
@@ -1169,6 +1268,7 @@ p { margin: 0; }
 @media (max-width: 860px) {
   .detail { grid-template-columns: 1fr; gap: 28px; }
   .detail h1 { font-size: 28px; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
@@ -1205,6 +1305,17 @@ p { margin: 0; }
   .detail-meta { gap: 20px; flex-wrap: wrap; }
 
   .footer-brand { max-width: 100%; }
+
+  .hero-cta-row { gap: 10px; }
+  .hero-studio-btn { font-size: 13px; padding: 10px 16px; min-height: 40px; }
+  .hero-cta-hint { font-size: 12px; }
+  .hero-trust { gap: 12px; }
+  .trust-item { font-size: 12px; }
+
+  .features { padding: 40px 0 28px; }
+  .features-heading { font-size: 20px; margin-bottom: 24px; }
+  .features-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .feature-card { padding: 20px 14px; }
 }
 
 @media (max-width: 380px) {
