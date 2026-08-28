@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin panel — Qurilish Bazasi</title>
+<script src="/theme.js"></script>
 <link rel="stylesheet" href="/styles.css">
 <link rel="stylesheet" href="/admin/admin.css">
 </head>
@@ -15,6 +16,10 @@
     <div class="brand" style="justify-content:center;margin-bottom:22px">
       <span class="brand-mark"><svg viewBox="0 0 33 33" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="33" height="33" rx="11" fill="url(#badminlograd)"/><path d="M8 10h17v3H8zm0 5h8v3H8zm9 0h8v3H9zm-9 5h17v3H8z" fill="rgba(255,255,255,.88)"/><defs><linearGradient id="badminlograd" x1="0" y1="0" x2="33" y2="33"><stop stop-color="#4DA3FF"/><stop offset="1" stop-color="#0A84FF"/></linearGradient></defs></svg></span>
       <span class="brand-col">Qurilish Bazasi<span class="brand-sub">admin panel</span></span>
+      <button class="theme-toggle" id="themeToggle" title="Rejimni almashtirish" onclick="toggleTheme()" style="margin-left:12px">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
     </div>
     <form id="loginForm">
       <div class="field">
@@ -41,6 +46,10 @@
       </a>
       <nav class="nav-links">
         <a href="/" target="_blank">Saytni ko'rish ↗</a>
+        <button class="theme-toggle" id="themeToggle" title="Rejimni almashtirish" onclick="toggleTheme()">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
         <button class="btn btn-secondary btn-sm" id="logoutBtn">Chiqish</button>
       </nav>
     </div>

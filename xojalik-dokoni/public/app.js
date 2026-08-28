@@ -254,8 +254,12 @@ async function loadSettings() {
     const fh = document.getElementById('footerHours');
     if (fh && s.ish_vaqti) { fh.textContent = s.ish_vaqti; fh.style.display = 'block'; }
 
-    // Tema (dark/light)
-    document.documentElement.classList.toggle('theme-light', s.tema === 'light');
+    // Tema (dark/light) — sync with data-theme + localStorage
+    var theme = s.tema === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+    try { localStorage.setItem('store-theme', theme); } catch (e) {}
 
     // Accent rang
     if (s.accent) {
