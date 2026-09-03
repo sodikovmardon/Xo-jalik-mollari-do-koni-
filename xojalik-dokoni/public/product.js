@@ -35,7 +35,7 @@ async function loadProduct() {
     <div class="detail-img">
       <img src="${img}" alt="${p.nomi}" onerror="this.src='/uploads/placeholder-default.svg'">
     </div>
-    <div class="detail-info">
+    <div class="detail-info" data-product-id="${p.id}" data-nomi="${p.nomi}" data-narx="${p.narx}" data-birlik="${p.birlik}" data-rasm="${img}" data-stock="${p.ombordagi_soni}">
       <span class="detail-cat">${p.kategoriya}</span>
       <h1>${p.nomi}</h1>
       <div class="detail-price-row">
@@ -52,21 +52,17 @@ async function loadProduct() {
         <button class="btn btn-primary" id="openOrderBtn" ${disabled}>
           ${disabled ? "Hozircha tugagan" : "Buyurtma berish"}
         </button>
+        ${typeof renderCartButton === 'function' ? renderCartButton(p) : `
         <button class="btn btn-secondary" id="addToCartBtn" ${disabled}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           Savatga qo'shish
-        </button>
+        </button>`}
       </div>
     </div>
   `;
 
   if (!disabled) {
     document.getElementById('openOrderBtn').addEventListener('click', openModal);
-    document.getElementById('addToCartBtn').addEventListener('click', () => {
-      if (typeof addToCart === 'function' && currentProduct) {
-        addToCart(currentProduct, 1);
-      }
-    });
   }
 }
 
@@ -178,7 +174,10 @@ async function applySettings() {
     if (fa && s.manzil) { fa.textContent = s.manzil; fa.style.display = 'block'; }
     const fh = document.getElementById('footerHours');
     if (fh && s.ish_vaqti) { fh.textContent = s.ish_vaqti; fh.style.display = 'block'; }
-    document.documentElement.classList.toggle('theme-light', s.tema === 'light');
+    var theme = s.tema === 'light' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+    try { localStorage.setItem('store-theme', theme); } catch (e) {}
     if (s.accent) {
       document.documentElement.style.setProperty('--accent', s.accent);
       document.documentElement.style.setProperty('--accent-2', s.accent === '#0a84ff' ? '#4da3ff' : s.accent);

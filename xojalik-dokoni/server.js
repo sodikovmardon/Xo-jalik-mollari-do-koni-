@@ -46,6 +46,10 @@ app.get('/api-hujjat', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'api-hujjat.html'));
 });
 
+app.get('/savat', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'savat.html'));
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

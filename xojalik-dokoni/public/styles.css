@@ -847,6 +847,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.08);
   transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple), border-color 0.3s var(--ease-apple);
   animation: fadeInCard 0.35s ease-out forwards;
+  cursor: pointer;
 }
 @keyframes fadeInCard {
   from { opacity: 0; transform: translateY(12px); }
@@ -981,6 +982,67 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   0% { transform: scale(1); }
   45% { transform: scale(0.95); }
   100% { transform: scale(1); }
+}
+
+/* ---------- Cart stepper (- N +) ---------- */
+.card-cart-wrap { margin-top: 10px; }
+.card-cart-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.stepper-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  user-select: none;
+}
+.stepper-btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: #fff;
+}
+.stepper-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.stepper-qty {
+  min-width: 32px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  padding: 0 4px;
+  line-height: 36px;
+}
+
+/* Detail page stepper — kattaroq */
+.detail-actions .card-cart-stepper {
+  height: 44px;
+}
+.detail-actions .stepper-btn {
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+.detail-actions .stepper-qty {
+  min-width: 40px;
+  font-size: 16px;
+  line-height: 44px;
 }
 
 .empty-state {

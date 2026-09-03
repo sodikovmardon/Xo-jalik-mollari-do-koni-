@@ -48,9 +48,8 @@ function catClass(cat) {
 
 function productCard(p) {
   const img = p.rasm_url || '/uploads/placeholder-default.svg';
-  const disabled = p.holat === 'Tugagan' ? 'disabled' : '';
   return `
-    <div class="card">
+    <div class="card" data-product-id="${p.id}" data-nomi="${p.nomi}" data-narx="${p.narx}" data-birlik="${p.birlik}" data-rasm="${img}" data-stock="${p.ombordagi_soni}">
       <a class="card-img" href="/mahsulot/${p.id}">
         <span class="badge ${badgeClass(p.holat)}">${p.holat}</span>
         <img src="${img}" alt="${p.nomi}" loading="lazy" onerror="this.onerror=null;this.src='/uploads/placeholder-default.svg'">
@@ -63,11 +62,7 @@ function productCard(p) {
           <span class="card-price">${priceFmt.format(p.narx)} so'm</span>
           <span class="card-unit">/ ${p.birlik}</span>
         </div>
-        <button class="btn btn-secondary btn-sm card-cart-btn" data-id="${p.id}" ${disabled} aria-label="Savatga qo'shish">
-          <svg class="ic-cart" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <svg class="ic-check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <span class="btn-label">${p.holat === 'Tugagan' ? 'Tugagan' : 'Savatga qo\'shish'}</span>
-        </button>
+        <div class="card-cart-wrap">${renderCartButton(p)}</div>
       </div>
     </div>`;
 }
@@ -174,6 +169,16 @@ function render() {
   grid.innerHTML = list.map(productCard).join('');
 }
 
+// Butun kartani bosish → mahsulot sahifasiga o'tish
+document.getElementById('productGrid').addEventListener('click', (e) => {
+  // Agar stepper tugmasi bosilgan bo'lsa — o'tirmaymiz
+  if (e.target.closest('.card-cart-stepper') || e.target.closest('.card-cart-btn') || e.target.closest('.stepper-btn')) return;
+  const card = e.target.closest('.card[data-product-id]');
+  if (card) {
+    window.location.href = '/mahsulot/' + card.dataset.productId;
+  }
+});
+
 function clearFilters() {
   searchTerm = '';
   activeCategory = '';
@@ -204,19 +209,6 @@ document.getElementById('searchClearBtn').addEventListener('click', () => {
   document.getElementById('searchClearBtn').classList.remove('show');
   applySearch();
   searchInput.focus();
-});
-
-document.getElementById('productGrid').addEventListener('click', (e) => {
-  const btn = e.target.closest('.card-cart-btn');
-  if (!btn || btn.disabled) return;
-  const id = parseInt(btn.dataset.id, 10);
-  const product = allProducts.find(p => p.id === id);
-  if (product && typeof addToCart === 'function') {
-    addToCart(product, 1);
-    // satisfaying checkmark micro-animation
-    btn.classList.add('added');
-    setTimeout(() => btn.classList.remove('added'), 1400);
-  }
 });
 
 // ============ SOZLAMALARNI QO'LLASH (do'kon nomi, tema, accent, yopiq banner) ============
