@@ -4,7 +4,7 @@ const priceFmt = new Intl.NumberFormat('uz-UZ');
 
 function getProductId() {
   const parts = window.location.pathname.split('/');
-  return parts[parts.length - 1];
+  return parseInt(parts[parts.length - 1], 10);
 }
 
 function badgeClass(holat) {
@@ -18,48 +18,43 @@ let currentProduct = null;
 async function loadProduct() {
   const id = getProductId();
   const wrap = document.getElementById('detailWrap');
-  const res = await fetch(`/api/v1/products/${id}`);
+  const res = await fetch('/api/v1/products/' + id);
   if (!res.ok) {
-    wrap.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><h3>Mahsulot topilmadi</h3><p><a href="/" class="btn btn-secondary" style="margin-top:12px">Katalogga qaytish</a></p></div>`;
+    wrap.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><h3>Mahsulot topilmadi</h3><p><a href="/" class="btn btn-secondary" style="margin-top:12px">Katalogga qaytish</a></p></div>';
     return;
   }
   const json = await res.json();
   const p = json.data;
   currentProduct = p;
-  document.title = `${p.nomi} — Qurilish Bazasi`;
+  document.title = p.nomi + ' — Qurilish Bazasi';
 
   const img = p.rasm_url || '/uploads/placeholder-default.svg';
   const disabled = p.holat === 'Tugagan' ? 'disabled' : '';
 
-  wrap.innerHTML = `
-    <div class="detail-img">
-      <img src="${img}" alt="${p.nomi}" onerror="this.src='/uploads/placeholder-default.svg'">
-    </div>
-    <div class="detail-info" data-product-id="${p.id}" data-nomi="${p.nomi}" data-narx="${p.narx}" data-birlik="${p.birlik}" data-rasm="${img}" data-stock="${p.ombordagi_soni}">
-      <span class="detail-cat">${p.kategoriya}</span>
-      <h1>${p.nomi}</h1>
-      <div class="detail-price-row">
-        <span class="detail-price">${priceFmt.format(p.narx)} so'm</span>
-        <span class="detail-unit">/ ${p.birlik}</span>
-        <span class="badge ${badgeClass(p.holat)}">${p.holat}</span>
-      </div>
-      <p class="detail-desc">${p.tavsif || 'Tavsif kiritilmagan.'}</p>
-      <div class="detail-meta">
-        <div><span class="label">Ombordagi qoldiq</span><span class="value">${p.ombordagi_soni} ${p.birlik}</span></div>
-        <div><span class="label">Yangilangan</span><span class="value">${new Date(p.oxirgi_yangilanish).toLocaleDateString('uz-UZ')}</span></div>
-      </div>
-      <div class="detail-actions">
-        <button class="btn btn-primary" id="openOrderBtn" ${disabled}>
-          ${disabled ? "Hozircha tugagan" : "Buyurtma berish"}
-        </button>
-        ${typeof renderCartButton === 'function' ? renderCartButton(p) : `
-        <button class="btn btn-secondary" id="addToCartBtn" ${disabled}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          Savatga qo'shish
-        </button>`}
-      </div>
-    </div>
-  `;
+  wrap.innerHTML =
+    '<div class="detail-img">' +
+      '<img src="' + img + '" alt="' + p.nomi + '" onerror="this.src=\'/uploads/placeholder-default.svg\'">' +
+    '</div>' +
+    '<div class="detail-info" data-product-id="' + p.id + '" data-nomi="' + p.nomi + '" data-narx="' + p.narx + '" data-birlik="' + p.birlik + '" data-rasm="' + img + '" data-stock="' + p.ombordagi_soni + '">' +
+      '<span class="detail-cat">' + p.kategoriya + '</span>' +
+      '<h1>' + p.nomi + '</h1>' +
+      '<div class="detail-price-row">' +
+        '<span class="detail-price">' + priceFmt.format(p.narx) + ' so\'m</span>' +
+        '<span class="detail-unit">/ ' + p.birlik + '</span>' +
+        '<span class="badge ' + badgeClass(p.holat) + '">' + p.holat + '</span>' +
+      '</div>' +
+      '<p class="detail-desc">' + (p.tavsif || 'Tavsif kiritilmagan.') + '</p>' +
+      '<div class="detail-meta">' +
+        '<div><span class="label">Ombordagi qoldiq</span><span class="value">' + p.ombordagi_soni + ' ' + p.birlik + '</span></div>' +
+        '<div><span class="label">Yangilangan</span><span class="value">' + new Date(p.oxirgi_yangilanish).toLocaleDateString('uz-UZ') + '</span></div>' +
+      '</div>' +
+      '<div class="detail-actions">' +
+        '<button class="btn btn-primary" id="openOrderBtn" ' + disabled + '>' +
+          (disabled ? 'Hozircha tugagan' : 'Buyurtma berish') +
+        '</button>' +
+        renderCartButton(p) +
+      '</div>' +
+    '</div>';
 
   if (!disabled) {
     document.getElementById('openOrderBtn').addEventListener('click', openModal);
@@ -117,7 +112,7 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
   const payload = {
     product_id: currentProduct.id,
     mijoz_ismi: document.getElementById('mijoz_ismi').value,
-    telefon: document.getElementById('telefon').value,
+    telefon: telInput.value,
     izoh: document.getElementById('izoh').value || undefined,
     miqdor: document.getElementById('miqdor').value
   };
@@ -134,7 +129,7 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
     const orderId = json.data && json.data.order_id ? json.data.order_id : '';
     const successSub = document.getElementById('singleOrderSuccessSub');
     if (successSub && orderId) {
-      successSub.textContent = `Buyurtmangiz qabul qilindi. Buyurtma raqami: #${orderId}`;
+      successSub.textContent = 'Buyurtmangiz qabul qilindi. Buyurtma raqami: #' + orderId;
     }
 
     document.getElementById('orderFormPanel').style.display = 'none';
@@ -149,7 +144,7 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
   }
 });
 
-// Sozlamalarni qo'llash (nom, tema, accent, yopiq banner)
+// Sozlamalarni qo'llash
 async function applySettings() {
   try {
     const res = await fetch('/api/v1/settings');
@@ -163,9 +158,9 @@ async function applySettings() {
     const fn = document.getElementById('footerName');
     if (fn && s.dokon_nomi) fn.textContent = s.dokon_nomi;
     const mark = document.getElementById('brandMark');
-    if (mark && s.logotip_url) mark.innerHTML = `<img src="${s.logotip_url}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`;
+    if (mark && s.logotip_url) mark.innerHTML = '<img src="' + s.logotip_url + '" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px">';
     const fl = document.getElementById('footerLogo');
-    if (fl && s.logotip_url) fl.innerHTML = `<img src="${s.logotip_url}" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`;
+    if (fl && s.logotip_url) fl.innerHTML = '<img src="' + s.logotip_url + '" alt="logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px">';
     const fp = document.getElementById('footerPhone');
     if (fp && s.telefon) { fp.textContent = s.telefon; fp.href = 'tel:' + s.telefon.replace(/[^0-9+]/g, ''); }
     const ft = document.getElementById('footerTelegram');
