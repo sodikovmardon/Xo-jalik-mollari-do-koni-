@@ -42,10 +42,6 @@ app.get('/mahsulot/:id', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'product.html'));
 });
 
-app.get('/api-hujjat', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'api-hujjat.html'));
-});
-
 app.get('/savat', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'savat.html'));
 });
@@ -60,6 +56,5 @@ app.listen(PORT, () => {
   console.log(`\n✅ Xo'jalik mollari do'koni serveri ishlamoqda!`);
   console.log(`   Sayt:        http://localhost:${PORT}`);
   console.log(`   Admin panel: http://localhost:${PORT}/admin  (login: admin / admin123)`);
-  console.log(`   API:         http://localhost:${PORT}/api/v1/products`);
-  console.log(`   API hujjat:  http://localhost:${PORT}/api-hujjat\n`);
+  console.log(`   API:         http://localhost:${PORT}/api/v1/products\n`);
 });
