@@ -21,9 +21,19 @@
       <a href="/api-hujjat" class="nav-link">API</a>
     </nav>
     <div class="nav-actions">
+      <button class="nav-search-btn" id="navSearchBtn" title="Qidiruv" aria-label="Qidiruv">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <div class="nav-search-expand" id="navSearchExpand">
+          <input type="text" id="navSearchInput" placeholder="Mahsulot qidirish..." autocomplete="off">
+        </div>
+      </button>
       <a href="https://uy-loyiha-studio-production.up.railway.app" target="_blank" rel="noopener" class="nav-studio-chip hidden" id="studioBackLink">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
         <span class="studio-chip-text">Uy Loyiha Studio</span>
+      </a>
+      <a href="/saqlangan" class="fav-icon-btn" title="Saqlangan" aria-label="Saqlangan">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="fav-badge" id="favCountBadge">0</span>
       </a>
       <button class="theme-toggle" id="themeToggle" title="Rejimni almashtirish" onclick="toggleTheme()">
         <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -110,6 +120,8 @@
 </div>
 
 <script src="/cart.js"></script>
+<script src="/favorites.js"></script>
+<script src="/nav-init.js"></script>
 <script src="/product.js"></script>
 </body>
 </html>

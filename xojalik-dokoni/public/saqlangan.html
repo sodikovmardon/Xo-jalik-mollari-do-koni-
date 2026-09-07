@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saqlanganlar — Qurilish Bazasi</title>
+<link rel="stylesheet" href="/styles.css">
+<script src="/theme.js"></script>
+<style>
+  .fav-page { max-width: 900px; margin: 0 auto; padding: 32px 0 64px; }
+  .fav-page h1 { font-size: 26px; margin-bottom: 24px; }
+  .fav-empty { text-align: center; padding: 80px 20px; }
+  .fav-empty h3 { margin-bottom: 12px; }
+  .fav-empty p { color: var(--text-dim); margin-bottom: 24px; }
+  .fav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .fav-item { display: flex; gap: 14px; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); position: relative; transition: all 0.2s var(--ease-apple); }
+  .fav-item:hover { border-color: rgba(255,255,255,0.15); }
+  .fav-item img { width: 80px; height: 80px; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; }
+  .fav-item .info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .fav-item .name { font-weight: 600; font-size: 14px; text-decoration: none; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .fav-item .name:hover { color: var(--accent-2); }
+  .fav-item .price { font-weight: 700; font-size: 15px; color: var(--accent-2); }
+  .fav-item .stock { font-size: 12px; color: var(--text-dim); }
+  .fav-item .stock.ok { color: var(--ok); }
+  .fav-item .stock.warn { color: var(--accent-2); }
+  .fav-item .stock.out { color: var(--danger); }
+  .fav-item .actions { display: flex; gap: 8px; margin-top: 6px; }
+  .fav-item .actions .btn { font-size: 12px; padding: 6px 12px; min-height: 32px; }
+  .fav-remove-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer; transition: all 0.2s; min-height: 32px; }
+  .fav-remove-btn:hover { color: var(--danger); border-color: var(--danger); background: var(--danger-bg); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="/" class="brand">
+      <span class="brand-mark" id="brandMark"><svg viewBox="0 0 40 40" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="10" fill="url(#fav-hbl)"/><path d="M10 14h7v4.5H10zm9 0h11v4.5H19zM10 21.5h11v4.5H10zm13 0h7v4.5H23z" fill="rgba(255,255,255,.92)"/><path d="M20 8l-10.5 5.5h10.5V8z" fill="rgba(255,255,255,.4)"/><path d="M20 8l10.5 5.5H20V8z" fill="rgba(255,255,255,.25)"/><defs><linearGradient id="fav-hbl" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#4DA3FF"/><stop offset="1" stop-color="#0A84FF"/></linearGradient></defs></svg></span>
+      <span class="brand-col"><span id="storeName">Qurilish Bazasi</span><span class="brand-sub" id="storeTagline">xo'jalik mollari do'koni</span></span>
+    </a>
+    <nav class="nav-center" id="navCenter">
+      <a href="/" class="nav-link">Katalog</a>
+      <a href="/api-hujjat" class="nav-link">API</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="nav-search-btn" id="navSearchBtn" title="Qidiruv" aria-label="Qidiruv">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <div class="nav-search-expand" id="navSearchExpand">
+          <input type="text" id="navSearchInput" placeholder="Mahsulot qidirish..." autocomplete="off">
+        </div>
+      </button>
+      <a href="/saqlangan" class="fav-icon-btn active" title="Saqlangan" aria-label="Saqlangan" style="color:var(--accent);border-color:rgba(10,132,255,0.35)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="fav-badge" id="favCountBadge">0</span>
+      </a>
+      <button class="theme-toggle" id="themeToggle" title="Rejimni almashtirish" onclick="toggleTheme()">
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/savat" class="cart-icon-btn" id="openCartHeaderBtn" title="Savat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" id="cartCountBadge">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="fav-page">
+    <a href="/" class="back-link">&larr; Katalogga qaytish</a>
+    <h1>Saqlanganlar</h1>
+    <div id="favContent"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-brand">
+      <span class="footer-logo" id="footerLogo"></span>
+      <div>
+        <span class="footer-name" id="footerName">Qurilish Bazasi</span>
+        <span class="footer-desc">Xo'jalik va qurilish mollari do'koni.</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>&copy; 2026 Qurilish Bazasi. Barcha huquqlar himoyalangan.</span>
+  </div>
+</footer>
+
+<script src="/cart.js"></script>
+<script src="/favorites.js"></script>
+<script src="/nav-init.js"></script>
+<script>
+(function() {
+  var content = document.getElementById('favContent');
+  var favProducts = [];
+  var fmt = new Intl.NumberFormat('uz-UZ');
+
+  function stockDotClass(holat) {
+    if (holat === 'Mavjud') return 'ok';
+    if (holat === 'Kam qoldi') return 'warn';
+    return 'out';
+  }
+
+  function render() {
+    var ids = getFavorites();
+    if (ids.length === 0) {
+      content.innerHTML =
+        '<div class="fav-empty">' +
+          '<div style="font-size:48px;margin-bottom:16px;opacity:0.3">&#9825;</div>' +
+          '<h3>Hozircha sevimli mahsulotlaringiz yo\'q</h3>' +
+          '<p>Katalogdan mahsulotlarni tanlang va yurak tugmasini bosing</p>' +
+          '<a href="/" class="btn btn-primary" style="margin-top:8px">Katalogga qaytish</a>' +
+        '</div>';
+      return;
+    }
+
+    var grid = '<div class="fav-grid">';
+    favProducts.forEach(function(p) {
+      if (!p || ids.indexOf(p.id) === -1) return;
+      var img = p.rasm_url || '/uploads/placeholder-default.svg';
+      grid +=
+        '<div class="fav-item" data-product-id="' + p.id + '">' +
+          '<img src="' + img + '" alt="' + p.nomi + '" onerror="this.src=\'/uploads/placeholder-default.svg\'">' +
+          '<div class="info">' +
+            '<a class="name" href="/mahsulot/' + p.id + '">' + p.nomi + '</a>' +
+            '<span class="price">' + fmt.format(p.narx) + ' so\'m / ' + p.birlik + '</span>' +
+            '<span class="stock ' + stockDotClass(p.holat) + '">' + p.holat + '</span>' +
+            '<div class="actions">' +
+              '<button class="btn btn-secondary btn-sm fav-add-cart" data-id="' + p.id + '"' + (p.holat === 'Tugagan' ? ' disabled' : '') + '>Savatga qo\'shish</button>' +
+              '<button class="fav-remove-btn" data-id="' + p.id + '">Sevimlilardan o\'chirish</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    });
+    grid += '</div>';
+    content.innerHTML = grid;
+  }
+
+  async function loadFavProducts() {
+    var ids = getFavorites();
+    if (ids.length === 0) { render(); return; }
+    try {
+      var res = await fetch('/api/v1/products');
+      var json = await res.json();
+      favProducts = json.data || [];
+    } catch(e) { favProducts = []; }
+    render();
+  }
+
+  content.addEventListener('click', function(e) {
+    var removeBtn = e.target.closest('.fav-remove-btn');
+    if (removeBtn) {
+      var id = parseInt(removeBtn.dataset.id, 10);
+      toggleFavorite(id);
+      loadFavProducts();
+      return;
+    }
+    var addCartBtn = e.target.closest('.fav-add-cart');
+    if (addCartBtn) {
+      var pid = parseInt(addCartBtn.dataset.id, 10);
+      addToCart(pid, 1);
+      addCartBtn.textContent = 'Qo\'shildi!';
+      addCartBtn.disabled = true;
+      setTimeout(function() { addCartBtn.textContent = 'Savatga qo\'shish'; addCartBtn.disabled = false; }, 1500);
+    }
+  });
+
+  // Sozlamalarni qo'llash
+  async function applySettings() {
+    try {
+      var res = await fetch('/api/v1/settings');
+      var json = await res.json();
+      if (json.success) {
+        var s = json.data;
+        var n = document.getElementById('storeName');
+        if (n && s.dokon_nomi) n.textContent = s.dokon_nomi;
+        var t = document.getElementById('storeTagline');
+        if (t && s.qisqa_tavsif) t.textContent = s.qisqa_tavsif;
+        var fn = document.getElementById('footerName');
+        if (fn && s.dokon_nomi) fn.textContent = s.dokon_nomi;
+        var theme = s.tema === 'light' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+        try { localStorage.setItem('store-theme', theme); } catch (e) {}
+        if (s.dokon_yopiq) document.documentElement.classList.add('store-closed');
+      }
+    } catch (e) {}
+  }
+
+  applySettings();
+  loadFavProducts();
+})();
+</script>
+</body>
+</html>

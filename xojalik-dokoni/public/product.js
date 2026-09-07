@@ -37,7 +37,10 @@ async function loadProduct() {
     '</div>' +
     '<div class="detail-info" data-product-id="' + p.id + '" data-nomi="' + p.nomi + '" data-narx="' + p.narx + '" data-birlik="' + p.birlik + '" data-rasm="' + img + '" data-stock="' + p.ombordagi_soni + '">' +
       '<span class="detail-cat">' + p.kategoriya + '</span>' +
-      '<h1>' + p.nomi + '</h1>' +
+      '<div class="detail-title-row">' +
+        '<h1>' + p.nomi + '</h1>' +
+        renderHeartButton(p.id) +
+      '</div>' +
       '<div class="detail-price-row">' +
         '<span class="detail-price">' + priceFmt.format(p.narx) + ' so\'m</span>' +
         '<span class="detail-unit">/ ' + p.birlik + '</span>' +
@@ -192,3 +195,6 @@ async function applySettings() {
 
 applySettings();
 loadProduct();
+
+// Yurak tugmasi — detail sahifada
+document.getElementById('detailWrap').addEventListener('click', handleFavClick);
