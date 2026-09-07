@@ -394,7 +394,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   position: absolute;
   top: -5px;
   right: -5px;
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background: var(--accent);
@@ -406,13 +406,11 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   padding: 0 5px;
   border-radius: 999px;
   line-height: 1;
-  opacity: 0;
-  transform: scale(0.5);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: transform 0.2s ease;
   pointer-events: none;
 }
 .cart-badge.has-items {
-  opacity: 1;
+  display: inline-flex;
   transform: scale(1);
   box-shadow: 0 0 8px rgba(77,163,255,0.6);
 }
