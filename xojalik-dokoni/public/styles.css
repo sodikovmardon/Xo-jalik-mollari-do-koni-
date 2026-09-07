@@ -430,8 +430,9 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   .nav-studio-chip .studio-chip-text { display: none; }
   .nav-studio-chip { padding: 7px 10px; gap: 0; }
   .site-header .wrap { height: 64px; }
-  .brand { padding-right: 12px; }
-  .nav-actions { padding-left: 12px; gap: 8px; }
+  .brand { min-width: 0; }
+  .brand .brand-mark { width: 36px; height: 36px; }
+  .nav-actions { padding-left: 16px; gap: 8px; margin-left: auto; }
 }
 
 .footer-studio {
