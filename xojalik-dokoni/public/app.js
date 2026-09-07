@@ -52,9 +52,9 @@ function productCard(p) {
     <div class="card" data-product-id="${p.id}" data-nomi="${p.nomi}" data-narx="${p.narx}" data-birlik="${p.birlik}" data-rasm="${img}" data-stock="${p.ombordagi_soni}">
       <a class="card-img" href="/mahsulot/${p.id}">
         <span class="badge ${badgeClass(p.holat)}">${p.holat}</span>
+        ${renderHeartButton(p.id)}
         <img src="${img}" alt="${p.nomi}" loading="lazy" onerror="this.onerror=null;this.src='/uploads/placeholder-default.svg'">
       </a>
-      ${renderHeartButton(p.id)}
       <div class="card-body">
         <span class="card-cat cat-${catClass(p.kategoriya)}">${categoryIcon(p.kategoriya)}${p.kategoriya}</span>
         <a class="card-title" href="/mahsulot/${p.id}">${p.nomi}</a>
@@ -173,7 +173,10 @@ function render() {
 // Butun kartani bosish → mahsulot sahifasiga o'tish
 document.getElementById('productGrid').addEventListener('click', (e) => {
   // Agar stepper tugmasi, savat tugmasi yoki yurak tugmasi bosilgan bo'lsa — o'tirmaymiz
-  if (e.target.closest('.card-cart-stepper') || e.target.closest('.card-cart-btn') || e.target.closest('.stepper-btn') || e.target.closest('[data-action="fav"]')) return;
+  if (e.target.closest('.card-cart-stepper') || e.target.closest('.card-cart-btn') || e.target.closest('.stepper-btn') || e.target.closest('[data-action="fav"]')) {
+    if (e.target.closest('[data-action="fav"]')) e.preventDefault();
+    return;
+  }
   const card = e.target.closest('.card[data-product-id]');
   if (card) {
     window.location.href = '/mahsulot/' + card.dataset.productId;
