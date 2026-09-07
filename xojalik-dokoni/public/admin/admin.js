@@ -598,7 +598,7 @@ async function loadSettings() {
 }
 
 function renderAccentSwatches(current) {
-  const colors = ['#0a84ff', '#ff375f', '#30d158', '#ff9f0a', '#bf5af2', '#ffd60a', '#5e5ce6'];
+  const colors = ['#0a84ff', '#ff375f', '#30d158', '#5ac8fa', '#bf5af2', '#4da3ff', '#5e5ce6'];
   document.getElementById('accentSwatches').innerHTML = colors.map(c =>
     `<button class="swatch ${c === current ? 'active' : ''}" data-color="${c}" style="--swatch:${c}"></button>`
   ).join('');
