@@ -13,27 +13,24 @@
 <header class="site-header">
   <div class="wrap">
     <a href="/" class="brand">
-      <span class="brand-mark"><svg viewBox="0 0 36 36" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="36" height="36" rx="10" fill="url(#idx-bl)"/><path d="M8 12h8v5H8zm10 0h10v5H18zM8 19h10v5H8zm12 0h8v5H20z" fill="rgba(255,255,255,.92)"/><path d="M18 8l-10 4h10V8z" fill="rgba(255,255,255,.4)"/><path d="M18 8l10 4H18V8z" fill="rgba(255,255,255,.25)"/><defs><linearGradient id="idx-bl" x1="0" y1="0" x2="36" y2="36"><stop stop-color="#4DA3FF"/><stop offset="1" stop-color="#0A84FF"/></linearGradient></defs></svg></span>
+      <span class="brand-mark"><svg viewBox="0 0 40 40" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="10" fill="url(#idx-hbl)"/><path d="M10 14h7v4.5H10zm9 0h11v4.5H19zM10 21.5h11v4.5H10zm13 0h7v4.5H23z" fill="rgba(255,255,255,.92)"/><path d="M20 8l-10.5 5.5h10.5V8z" fill="rgba(255,255,255,.4)"/><path d="M20 8l10.5 5.5H20V8z" fill="rgba(255,255,255,.25)"/><defs><linearGradient id="idx-hbl" x1="0" y1="0" x2="40" y2="40"><stop stop-color="var(--accent,#4DA3FF)"/><stop offset="1" stop-color="var(--accent-2,#0A84FF)"/></linearGradient></defs></svg></span>
       <span class="brand-col"><span id="storeName">Qurilish Bazasi</span><span class="brand-sub" id="storeTagline">xo'jalik mollari do'koni</span></span>
     </a>
-    <div class="nav-right">
-      <nav class="nav-links" id="navLinks">
-        <a href="/" class="active">Katalog</a>
-      </nav>
-      <a href="#" class="studio-back hidden" id="studioBackLink" title="Uy Loyiha Studio'ga qaytish">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-        Uy Loyiha Studio
+    <nav class="nav-center" id="navCenter">
+      <a href="/" class="nav-link active">Katalog</a>
+      <a href="/api-hujjat" class="nav-link">API</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="https://uy-loyiha-studio-production.up.railway.app" target="_blank" rel="noopener" class="nav-studio-chip hidden" id="studioBackLink">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        <span class="studio-chip-text">Uy Loyiha Studio</span>
       </a>
       <button class="theme-toggle" id="themeToggle" title="Rejimni almashtirish" onclick="toggleTheme()">
-        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
       </button>
       <a href="/savat" class="cart-icon-btn" id="openCartHeaderBtn" title="Savat">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         <span class="cart-badge" id="cartCountBadge">0</span>
       </a>
     </div>
