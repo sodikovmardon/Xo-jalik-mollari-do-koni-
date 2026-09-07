@@ -596,7 +596,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
 }
 .hero-stat:active { transform: scale(0.97); }
-.hero-stat-icon { color: var(--accent-2); display: inline-flex; align-items: center; }
+.hero-stat-icon { color: #4DA3FF; display: inline-flex; align-items: center; }
 .hero-stat-value {
   font-size: 20px;
   font-weight: 700;
@@ -1029,8 +1029,8 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   gap: 6px;
 }
 .card-cat svg { opacity: 0.9; }
-/* Kategoriya ranglari = Uy Loyiha Studio material accentlari bilan sinxron */
-.cat-brick { color: #FF9500; }
+/* Kategoriya ranglari */
+.cat-brick { color: #4DA3FF; }
 .cat-cement { color: #007AFF; }
 .cat-sand { color: #34C759; }
 .cat-tool { color: #5856D6; }
