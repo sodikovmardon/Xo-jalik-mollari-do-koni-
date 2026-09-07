@@ -490,9 +490,9 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
 .hero-inner {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 40px;
-  align-items: center;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 36px;
+  align-items: stretch;
 }
 .hero-left {
   display: flex;
@@ -578,14 +578,14 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
 }
 /* Right column: hero image carousel */
 .hero-carousel {
-  align-self: center;
+  align-self: stretch;
   position: relative;
   border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 20px 60px -8px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.12);
   width: 100%;
-  aspect-ratio: 3 / 2;
+  min-height: 380px;
 }
 .hero-carousel::after {
   content: '';
@@ -1448,7 +1448,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
 @media (max-width: 1023px) {
   .hero-inner { grid-template-columns: 1fr; gap: 40px; align-items: start; }
   .hero-left { gap: 20px; }
-  .hero-carousel { max-width: 640px; }
+  .hero-carousel { max-width: 640px; min-height: 0; aspect-ratio: 16 / 10; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
 }
 
@@ -1468,7 +1468,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   .hero-stats { gap: 10px; }
   .hero-stat { padding: 14px 16px; min-width: 110px; flex: 1; }
   .hero-stat-value { font-size: 18px; }
-  .hero-carousel { max-width: 100%; border-radius: var(--radius-lg); }
+  .hero-carousel { max-width: 100%; border-radius: var(--radius-lg); min-height: 0; aspect-ratio: 16 / 10; }
 
   .nav-links a { padding: 8px 12px; font-size: 13.5px; }
 
@@ -1582,7 +1582,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   .hero { padding: 48px 0 40px; }
   .hero h1 { font-size: 24px; }
   .hero p { font-size: 14px; line-height: 1.6; }
-  .hero-carousel { aspect-ratio: 4 / 3; border-radius: 16px; }
+  .hero-carousel { border-radius: 16px; min-height: 0; aspect-ratio: 4 / 3; }
   .hero-carousel .hc-arrow { opacity: 1; width: 36px; height: 36px; }
   .hero-carousel .hc-arrow svg { width: 16px; height: 16px; }
   .hc-prev { left: 8px; }
