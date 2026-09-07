@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#111827"/><stop offset="100%" stop-color="#0a0e17"/>
+    </linearGradient>
+    <linearGradient id="shelf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4b5563"/><stop offset="100%" stop-color="#374151"/>
+    </linearGradient>
+    <linearGradient id="box1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#92400e"/><stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <linearGradient id="box2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e40af"/><stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="box3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#065f46"/><stop offset="100%" stop-color="#064e3b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg5)"/>
+  <!-- Warehouse ceiling beams -->
+  <rect x="0" y="0" width="800" height="6" fill="#1f2937" rx="0"/>
+  <rect x="0" y="40" width="800" height="3" fill="#1f2937" opacity=".5"/>
+  <!-- Ceiling lights -->
+  <rect x="150" y="3" width="40" height="4" fill="#fbbf24" rx="2" opacity=".7"/>
+  <ellipse cx="170" cy="50" rx="60" ry="40" fill="#fbbf24" opacity=".04"/>
+  <rect x="400" y="3" width="40" height="4" fill="#fbbf24" rx="2" opacity=".7"/>
+  <ellipse cx="420" cy="50" rx="60" ry="40" fill="#fbbf24" opacity=".04"/>
+  <rect x="650" y="3" width="40" height="4" fill="#fbbf24" rx="2" opacity=".7"/>
+  <ellipse cx="670" cy="50" rx="60" ry="40" fill="#fbbf24" opacity=".04"/>
+  <!-- Shelf unit 1 (left) -->
+  <rect x="30" y="80" width="12" height="340" fill="url(#shelf)" rx="2"/>
+  <rect x="160" y="80" width="12" height="340" fill="url(#shelf)" rx="2"/>
+  <!-- Shelf levels -->
+  <rect x="30" y="100" width="142" height="8" fill="#4b5563" rx="1"/>
+  <rect x="30" y="190" width="142" height="8" fill="#4b5563" rx="1"/>
+  <rect x="30" y="280" width="142" height="8" fill="#4b5563" rx="1"/>
+  <rect x="30" y="370" width="142" height="8" fill="#4b5563" rx="1"/>
+  <!-- Boxes on shelf 1 -->
+  <rect x="40" y="65" width="45" height="32" fill="url(#box1)" rx="3"/><rect x="95" y="72" width="35" height="25" fill="url(#box2)" rx="3"/>
+  <rect x="40" y="155" width="55" height="32" fill="url(#box3)" rx="3"/><rect x="105" y="162" width="40" height="25" fill="url(#box1)" rx="3"/>
+  <rect x="40" y="245" width="35" height="32" fill="url(#box2)" rx="3"/><rect x="85" y="248" width="50" height="29" fill="url(#box3)" rx="3"/>
+  <rect x="40" y="335" width="50" height="32" fill="url(#box1)" rx="3"/><rect x="100" y="340" width="35" height="27" fill="url(#box2)" rx="3"/>
+  <!-- Shelf unit 2 (middle) -->
+  <rect x="220" y="80" width="12" height="340" fill="url(#shelf)" rx="2"/>
+  <rect x="380" y="80" width="12" height="340" fill="url(#shelf)" rx="2"/>
+  <rect x="220" y="100" width="172" height="8" fill="#4b5563" rx="1"/>
+  <rect x="220" y="190" width="172" height="8" fill="#4b5563" rx="1"/>
+  <rect x="220" y="280" width="172" height="8" fill="#4b5563" rx="1"/>
+  <rect x="220" y="370" width="172" height="8" fill="#4b5563" rx="1"/>
+  <!-- Boxes on shelf 2 -->
+  <rect x="230" y="65" width="55" height="32" fill="url(#box2)" rx="3"/><rect x="295" y="60" width="40" height="37" fill="url(#box3)" rx="3"/>
+  <rect x="230" y="155" width="40" height="32" fill="url(#box1)" rx="3"/><rect x="280" y="148" width="50" height="39" fill="url(#box2)" rx="3"/>
+  <rect x="230" y="245" width="60" height="32" fill="url(#box3)" rx="3"/><rect x="300" y="250" width="45" height="27" fill="url(#box1)" rx="3"/>
+  <rect x="230" y="335" width="45" height="32" fill="url(#box2)" rx="3"/><rect x="285" y="330" width="55" height="37" fill="url(#box3)" rx="3"/>
+  <!-- Shelf unit 3 (right) -->
+  <rect x="440" y="80" width="12" height="340" fill="url(#shelf)" rx="2"/>
+  <rect x="590" y="80" width="12" height="340" fill="url(#shelf)" rx="2"/>
+  <rect x="440" y="100" width="162" height="8" fill="#4b5563" rx="1"/>
+  <rect x="440" y="190" width="162" height="8" fill="#4b5563" rx="1"/>
+  <rect x="440" y="280" width="162" height="8" fill="#4b5563" rx="1"/>
+  <rect x="440" y="370" width="162" height="8" fill="#4b5563" rx="1"/>
+  <!-- Cans & containers on shelf 3 -->
+  <rect x="450" y="68" width="30" height="30" fill="#0a84ff" rx="4" opacity=".7"/>
+  <rect x="490" y="72" width="25" height="26" fill="#059669" rx="4" opacity=".7"/>
+  <rect x="525" y="65" width="28" height="33" fill="#dc2626" rx="4" opacity=".7"/>
+  <rect x="560" y="70" width="22" height="28" fill="#8b5cf6" rx="4" opacity=".6"/>
+  <rect x="450" y="158" width="35" height="30" fill="#d97706" rx="3" opacity=".7"/>
+  <rect x="495" y="155" width="28" height="33" fill="#0891b2" rx="3" opacity=".7"/>
+  <rect x="533" y="160" width="30" height="28" fill="#059669" rx="3" opacity=".6"/>
+  <rect x="450" y="248" width="28" height="30" fill="#dc2626" rx="3" opacity=".6"/>
+  <rect x="488" y="252" width="35" height="26" fill="#0a84ff" rx="3" opacity=".7"/>
+  <rect x="533" y="245" width="25" height="33" fill="#d97706" rx="3" opacity=".6"/>
+  <rect x="565" y="250" width="22" height="28" fill="#8b5cf6" rx="3" opacity=".5"/>
+  <rect x="450" y="338" width="32" height="30" fill="#059669" rx="3" opacity=".7"/>
+  <rect x="492" y="340" width="28" height="28" fill="#dc2626" rx="3" opacity=".6"/>
+  <rect x="530" y="335" width="35" height="33" fill="#0a84ff" rx="3" opacity=".7"/>
+  <!-- Far right tall shelf -->
+  <rect x="640" y="80" width="12" height="340" fill="url(#shelf)" rx="2"/>
+  <rect x="770" y="80" width="12" height="340" fill="url(#shelf)" rx="2"/>
+  <rect x="640" y="100" width="142" height="8" fill="#4b5563" rx="1"/>
+  <rect x="640" y="190" width="142" height="8" fill="#4b5563" rx="1"/>
+  <rect x="640" y="280" width="142" height="8" fill="#4b5563" rx="1"/>
+  <rect x="640" y="370" width="142" height="8" fill="#4b5563" rx="1"/>
+  <rect x="650" y="65" width="40" height="32" fill="url(#box1)" rx="3"/>
+  <rect x="700" y="70" width="35" height="27" fill="url(#box2)" rx="3"/>
+  <rect x="650" y="155" width="50" height="32" fill="url(#box3)" rx="3"/>
+  <rect x="710" y="160" width="30" height="27" fill="url(#box1)" rx="3"/>
+  <rect x="650" y="245" width="35" height="32" fill="url(#box2)" rx="3"/>
+  <rect x="695" y="250" width="40" height="27" fill="url(#box3)" rx="3"/>
+  <rect x="650" y="335" width="45" height="32" fill="url(#box1)" rx="3"/>
+  <rect x="705" y="340" width="30" height="27" fill="url(#box2)" rx="3"/>
+  <!-- Floor -->
+  <rect x="0" y="420" width="800" height="30" fill="#1f2937"/>
+  <line x1="0" y1="420" x2="800" y2="420" stroke="#374151" stroke-width="1"/>
+</svg>

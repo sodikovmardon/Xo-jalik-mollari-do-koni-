@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0f08"/>
+      <stop offset="100%" stop-color="#0d0a06"/>
+    </linearGradient>
+    <linearGradient id="brick1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b44a2d"/>
+      <stop offset="100%" stop-color="#8b3a1f"/>
+    </linearGradient>
+    <linearGradient id="brick2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a0402a"/>
+      <stop offset="100%" stop-color="#7a321c"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity=".3"/>
+    </filter>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg2)"/>
+  <!-- Brick wall pattern -->
+  <!-- Row 1 -->
+  <g filter="url(#shadow)">
+    <rect x="20" y="80" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="118" y="80" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="216" y="80" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="314" y="80" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="412" y="80" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="510" y="80" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="608" y="80" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="706" y="80" width="80" height="38" fill="url(#brick2)" rx="2"/>
+    <!-- Row 2 offset -->
+    <rect x="-25" y="126" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="73" y="126" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <rect x="171" y="126" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="269" y="126" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <rect x="367" y="126" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="465" y="126" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <rect x="563" y="126" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="661" y="126" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <!-- Row 3 -->
+    <rect x="20" y="172" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="118" y="172" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="216" y="172" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="314" y="172" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="412" y="172" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="510" y="172" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="608" y="172" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="706" y="172" width="80" height="38" fill="url(#brick2)" rx="2"/>
+    <!-- Row 4 offset -->
+    <rect x="-25" y="218" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="73" y="218" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <rect x="171" y="218" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="269" y="218" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <rect x="367" y="218" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="465" y="218" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <rect x="563" y="218" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="661" y="218" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <!-- Row 5 -->
+    <rect x="20" y="264" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="118" y="264" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="216" y="264" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="314" y="264" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="412" y="264" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="510" y="264" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="608" y="264" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="706" y="264" width="80" height="38" fill="url(#brick2)" rx="2"/>
+    <!-- Row 6 offset -->
+    <rect x="-25" y="310" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="73" y="310" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <rect x="171" y="310" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="269" y="310" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <rect x="367" y="310" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="465" y="310" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <rect x="563" y="310" width="90" height="38" fill="url(#brick2)" rx="2"/><rect x="661" y="310" width="90" height="38" fill="url(#brick1)" rx="2"/>
+    <!-- Row 7 -->
+    <rect x="20" y="356" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="118" y="356" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="216" y="356" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="314" y="356" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="412" y="356" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="510" y="356" width="90" height="38" fill="url(#brick2)" rx="2"/>
+    <rect x="608" y="356" width="90" height="38" fill="url(#brick1)" rx="2"/><rect x="706" y="356" width="80" height="38" fill="url(#brick2)" rx="2"/>
+  </g>
+  <!-- Trowel -->
+  <g transform="translate(520,200) rotate(-30)">
+    <rect x="0" y="0" width="10" height="90" fill="#8b6914" rx="3"/>
+    <rect x="-15" y="80" width="40" height="55" fill="#9ca3af" rx="3"/>
+    <rect x="-15" y="80" width="40" height="5" fill="#d1d5db" rx="1"/>
+  </g>
+  <!-- Mortar bucket -->
+  <ellipse cx="180" cy="400" rx="35" ry="10" fill="#4b5563"/>
+  <rect x="145" y="370" width="70" height="30" fill="#6b7280" rx="3"/>
+  <ellipse cx="180" cy="370" rx="35" ry="10" fill="#9ca3af"/>
+  <ellipse cx="180" cy="370" rx="30" ry="8" fill="#78716c"/>
+  <!-- Level tool -->
+  <g transform="translate(600,350) rotate(5)">
+    <rect x="0" y="0" width="120" height="8" fill="#eab308" rx="2"/>
+    <rect x="50" y="-2" width="20" height="12" fill="#a3e635" rx="6" opacity=".6"/>
+    <circle cx="60" cy="4" r="4" fill="none" stroke="#1a1a1a" stroke-width="1" opacity=".5"/>
+  </g>
+  <!-- Light glow -->
+  <ellipse cx="400" cy="225" rx="300" ry="180" fill="#b44a2d" opacity=".06"/>
+</svg>
