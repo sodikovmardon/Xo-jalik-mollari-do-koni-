@@ -490,8 +490,8 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
 .hero-inner {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
   align-items: center;
 }
 .hero-left {
@@ -585,7 +585,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 20px 60px -8px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.12);
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
 }
 .hero-carousel::after {
   content: '';
@@ -1582,7 +1582,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   .hero { padding: 48px 0 40px; }
   .hero h1 { font-size: 24px; }
   .hero p { font-size: 14px; line-height: 1.6; }
-  .hero-carousel { aspect-ratio: 16 / 10; border-radius: 16px; }
+  .hero-carousel { aspect-ratio: 4 / 3; border-radius: 16px; }
   .hero-carousel .hc-arrow { opacity: 1; width: 36px; height: 36px; }
   .hero-carousel .hc-arrow svg { width: 16px; height: 16px; }
   .hc-prev { left: 8px; }
