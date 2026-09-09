@@ -5,10 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Qurilish Bazasi — Xo'jalik mollari do'koni</title>
 <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/mobile.css">
 <script src="/theme.js"></script>
 </head>
 <body>
+
+<!-- MOBILE: Top bar -->
+<div class="mobile-top-bar" id="mobileTopBar">
+  <a href="/" class="mtb-logo">
+    <svg viewBox="0 0 40 40" width="100%" height="100%" fill="none"><rect width="40" height="40" rx="10" fill="url(#mb-hbl)"/><path d="M10 14h7v4.5H10zm9 0h11v4.5H19zM10 21.5h11v4.5H10zm13 0h7v4.5H23z" fill="rgba(255,255,255,.92)"/><path d="M20 8l-10.5 5.5h10.5V8z" fill="rgba(255,255,255,.4)"/><path d="M20 8l10.5 5.5H20V8z" fill="rgba(255,255,255,.25)"/><defs><linearGradient id="mb-hbl" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#4DA3FF"/><stop offset="1" stop-color="#0A84FF"/></linearGradient></defs></svg>
+  </a>
+  <form class="mtb-search-wrap" action="/" method="get" style="flex:1;display:flex">
+    <input class="mtb-search" id="mobileSearchInput" type="text" name="search" placeholder="Mahsulot qidirish..." autocomplete="off">
+  </form>
+</div>
+
+<!-- MOBILE: Category bottom sheet overlay -->
+<div class="mobile-sheet-overlay" id="mobileSheetOverlay"></div>
+<div class="mobile-category-sheet" id="mobileCategorySheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" data-i18n="categories">Kategoriyalar</div>
+  <div id="mobileSheetItems"></div>
+</div>
+
 <div id="maintenanceBanner" style="display:none" class="maintenance-banner">Do'kon vaqtincha yopiq, tez orada qaytamiz</div>
+
+<!-- Utility bar -->
+<div class="utility-bar">
+  <div class="wrap">
+    <div class="utility-left">
+      <a href="tel:+998901234567" class="utility-phone">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +998 90 123 45 67
+      </a>
+      <span class="bh-status" id="businessHours" data-i18n-open="Ochiq" data-i18n-closed="Yopiq"></span>
+    </div>
+    <div class="utility-right">
+      <span class="utility-delivery" data-i18n="delivery">Yetkazib berish: butun O'zbekiston bo'ylab</span>
+      <div class="utility-lang">
+        <button class="lang-btn active" data-lang="uz" onclick="__lang.set('uz')">O'z</button>
+        <button class="lang-btn" data-lang="ru" onclick="__lang.set('ru')">Ру</button>
+      </div>
+      <a href="https://uy-loyiha-studio-production.up.railway.app" target="_blank" rel="noopener" class="nav-studio-chip hidden" id="studioBackLink">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        <span class="studio-chip-text">Uy Loyiha Studio</span>
+      </a>
+    </div>
+  </div>
+</div>
 
 <header class="site-header">
   <div class="wrap">
@@ -16,32 +60,57 @@
       <span class="brand-mark"><svg viewBox="0 0 40 40" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="10" fill="url(#idx-hbl)"/><path d="M10 14h7v4.5H10zm9 0h11v4.5H19zM10 21.5h11v4.5H10zm13 0h7v4.5H23z" fill="rgba(255,255,255,.92)"/><path d="M20 8l-10.5 5.5h10.5V8z" fill="rgba(255,255,255,.4)"/><path d="M20 8l10.5 5.5H20V8z" fill="rgba(255,255,255,.25)"/><defs><linearGradient id="idx-hbl" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#4DA3FF"/><stop offset="1" stop-color="#0A84FF"/></linearGradient></defs></svg></span>
       <span class="brand-col"><span id="storeName">Qurilish Bazasi</span><span class="brand-sub" id="storeTagline">xo'jalik mollari do'koni</span></span>
     </a>
-    <nav class="nav-center" id="navCenter">
-      <a href="/" class="nav-link active">Katalog</a>
-    </nav>
-    <div class="nav-actions">
-      <button class="nav-search-btn" id="navSearchBtn" title="Qidiruv" aria-label="Qidiruv">
+
+    <!-- Large search box (center) -->
+    <div class="nav-search-box" id="navSearchBox">
+      <span class="search-icon">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <div class="nav-search-expand" id="navSearchExpand">
-          <input type="text" id="navSearchInput" placeholder="Mahsulot qidirish..." autocomplete="off">
+      </span>
+      <input type="text" id="navSearchInput" data-i18n-placeholder="search_placeholder" placeholder="Mahsulot qidirish, masalan: sement, g'isht..." autocomplete="off">
+      <button class="search-clear" id="searchClear" aria-label="Tozalash">✕</button>
+    </div>
+
+    <!-- Actions (right) -->
+    <div class="nav-actions">
+      <!-- Mobile search trigger -->
+      <button class="mobile-search-trigger" id="mobileSearchTrigger" aria-label="Qidiruv">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+
+      <!-- Categories mega-menu -->
+      <div class="categories-wrap" id="categoriesWrap">
+        <button class="categories-btn" id="categoriesBtn" aria-label="Kategoriyalar">
+          <svg class="action-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          <span class="action-label" data-i18n="categories">Kategoriyalar</span>
+        </button>
+        <div class="categories-mega" id="categoriesMega">
+          <div class="mega-grid" id="megaGrid"></div>
         </div>
-      </button>
-      <a href="https://uy-loyiha-studio-production.up.railway.app" target="_blank" rel="noopener" class="nav-studio-chip hidden" id="studioBackLink">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
-        <span class="studio-chip-text">Uy Loyiha Studio</span>
+      </div>
+
+      <!-- Favorites -->
+      <a href="/saqlangan" class="nav-action-item" title="Sevimlilar" aria-label="Sevimlilar">
+        <span class="action-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="badge" id="favCountBadge">0</span>
+        </span>
+        <span class="action-label" data-i18n="favorites">Sevimli</span>
       </a>
-      <a href="/saqlangan" class="fav-icon-btn" title="Saqlangan" aria-label="Saqlangan">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <span class="fav-badge" id="favCountBadge">0</span>
+
+      <!-- Cart -->
+      <a href="/savat" class="nav-action-item" title="Savat" aria-label="Savat">
+        <span class="action-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="badge" id="cartCountBadge">0</span>
+        </span>
+        <span class="action-label" data-i18n="cart">Savat</span>
       </a>
+
+      <!-- Theme toggle -->
       <button class="theme-toggle" id="themeToggle" title="Rejimni almashtirish" onclick="toggleTheme()">
-        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
       </button>
-      <a href="/savat" class="cart-icon-btn" id="openCartHeaderBtn" title="Savat">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        <span class="cart-badge" id="cartCountBadge">0</span>
-      </a>
     </div>
   </div>
 </header>
@@ -55,40 +124,40 @@
     </div>
     <div class="hero-inner">
       <div class="hero-left">
-        <span class="hero-eyebrow">Ombordagi qoldiq real vaqtda yangilanadi</span>
-        <h1>Qurilish uchun kerakli <span>hamma narsa</span> bitta joyda.</h1>
-        <p>G'isht, sement, qum, asbob-uskuna va elektr materiallari — narxi va ombordagi qoldig'i bilan. Mahsulotni tanlang va buyurtma so'rovini qoldiring, biz siz bilan bog'lanamiz.</p>
+        <span class="hero-eyebrow" data-i18n="hero_eyebrow">Ombordagi qoldiq real vaqtda yangilanadi</span>
+        <h1><span data-i18n="hero_h1_pre">Qurilish uchun kerakli</span> <span data-i18n="hero_h1_span">hamma narsa</span> <span data-i18n="hero_h1_post">bitta joyda.</span></h1>
+        <p data-i18n="hero_desc">G'isht, sement, qum, asbob-uskuna va elektr materiallari — narxi va ombordagi qoldig'i bilan. Mahsulotni tanlang va buyurtma so'rovini qoldiring, biz siz bilan bog'lanamiz.</p>
         <div class="hero-stats">
           <div class="hero-stat glass-surface">
             <span class="hero-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span>
             <span class="hero-stat-value" id="statProducts">0+</span>
-            <span class="hero-stat-label">mahsulot katalogda</span>
+            <span class="hero-stat-label" data-i18n="stat_products">mahsulot katalogda</span>
           </div>
           <div class="hero-stat glass-surface">
             <span class="hero-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
             <span class="hero-stat-value">7</span>
-            <span class="hero-stat-label">kategoriya bo'limi</span>
+            <span class="hero-stat-label" data-i18n="stat_categories">kategoriya bo'limi</span>
           </div>
           <div class="hero-stat glass-surface">
             <span class="hero-stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
-            <span class="hero-stat-value">24 soat</span>
-            <span class="hero-stat-label">ichida javob</span>
+            <span class="hero-stat-value" data-i18n="stat_hours_val">24 soat</span>
+            <span class="hero-stat-label" data-i18n="stat_hours">ichida javob</span>
           </div>
         </div>
         <div class="hero-cta-row">
-          <a href="#catalog" class="btn btn-primary">Katalogni ko'rish</a>
+          <a href="#catalog" class="btn btn-primary" data-i18n="btn_catalog">Katalogni ko'rish</a>
           <div class="hero-cta-group">
             <a href="https://uy-loyiha-studio-production.up.railway.app" target="_blank" rel="noopener" class="btn btn-secondary hero-studio-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-              Qurilish kalkulyatori
+              <span data-i18n="btn_calculator">Qurilish kalkulyatori</span>
             </a>
-            <span class="hero-cta-hint">Loyihangiz uchun material miqdorini hisoblab ko'ring →</span>
+            <span class="hero-cta-hint" data-i18n="hero_cta_hint">Loyihangiz uchun material miqdorini hisoblab ko'ring →</span>
           </div>
         </div>
         <div class="hero-trust">
-          <span class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Naqd va nasiya to'lov</span>
-          <span class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Yetkazib berish mavjud</span>
-          <span class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Sifat kafolati</span>
+          <span class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-i18n="trust_payment">Naqd va nasiya to'lov</span></span>
+          <span class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-i18n="trust_delivery">Yetkazib berish mavjud</span></span>
+          <span class="trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-i18n="trust_quality">Sifat kafolati</span></span>
         </div>
       </div>
       <div class="hero-carousel" id="heroCarousel">
@@ -119,27 +188,27 @@
 
 <div class="wrap">
   <section class="features" id="catalog">
-    <h2 class="features-heading">Nega bizni tanlashadi?</h2>
+    <h2 class="features-heading" data-i18n="features_title">Nega bizni tanlashadi?</h2>
     <div class="features-grid">
       <div class="feature-card glass-surface">
         <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5a2 2 0 0 1-2 2h-1"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
-        <span class="feature-title">Tezkor yetkazib berish</span>
-        <span class="feature-desc">Buyurtma 24 soat ichida yetkaziladi</span>
+        <span class="feature-title" data-i18n="feat1_title">Tezkor yetkazib berish</span>
+        <span class="feature-desc" data-i18n="feat1_desc">Buyurtma 24 soat ichida yetkaziladi</span>
       </div>
       <div class="feature-card glass-surface">
         <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
-        <span class="feature-title">Hamyonbop narxlar</span>
-        <span class="feature-desc">Bozordagi eng maqbul narxlar</span>
+        <span class="feature-title" data-i18n="feat2_title">Hamyonbop narxlar</span>
+        <span class="feature-desc" data-i18n="feat2_desc">Bozordagi eng maqbul narxlar</span>
       </div>
       <div class="feature-card glass-surface">
         <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span>
-        <span class="feature-title">Aniq ombor qoldig'i</span>
-        <span class="feature-desc">Real vaqtda qoldiq miqdorini tekshiring</span>
+        <span class="feature-title" data-i18n="feat3_title">Aniq ombor qoldig'i</span>
+        <span class="feature-desc" data-i18n="feat3_desc">Real vaqtda qoldiq miqdorini tekshiring</span>
       </div>
       <div class="feature-card glass-surface">
         <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-        <span class="feature-title">Ishonchli hamkorlik</span>
-        <span class="feature-desc">3 yillik tajriba va ishonchli obro'</span>
+        <span class="feature-title" data-i18n="feat4_title">Ishonchli hamkorlik</span>
+        <span class="feature-desc" data-i18n="feat4_desc">3 yillik tajriba va ishonchli obro'</span>
       </div>
     </div>
   </section>
@@ -147,14 +216,14 @@
   <div class="toolbar">
     <div class="search-box">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="text" id="searchInput" placeholder="Mahsulot qidirish (masalan: sement)..." autocomplete="off">
+      <input type="text" id="searchInput" data-i18n-placeholder="search_placeholder" placeholder="Mahsulot qidirish (masalan: sement)..." autocomplete="off">
       <button class="search-clear" id="searchClearBtn" aria-label="Tozalash">✕</button>
     </div>
     <div class="result-count" id="resultCount" style="display:none"></div>
   </div>
   <div class="category-pills-wrap">
     <div class="category-pills" id="categoryPills">
-      <button class="pill active" data-category="">Barchasi</button>
+      <button class="pill active" data-category="" data-i18n="all">Barchasi</button>
     </div>
   </div>
 
@@ -169,29 +238,31 @@
       <span class="footer-logo" id="footerLogo"><svg viewBox="0 0 33 33" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="33" height="33" rx="11" fill="url(#bfgrad)"/><path d="M8 10h17v3H8zm0 5h8v3H8zm9 0h8v3H9zm-9 5h17v3H8z" fill="rgba(255,255,255,.88)"/><defs><linearGradient id="bfgrad" x1="0" y1="0" x2="33" y2="33"><stop stop-color="#4DA3FF"/><stop offset="1" stop-color="#0A84FF"/></linearGradient></defs></svg></span>
       <div>
         <span class="footer-name" id="footerName">Qurilish Bazasi</span>
-        <span class="footer-desc">Xo'jalik va qurilish mollari do'koni. Narxlar va ombordagi qoldiq har kuni yangilanadi.</span>
+        <span class="footer-desc" data-i18n="footer_desc">Xo'jalik va qurilish mollari do'koni. Narxlar va ombordagi qoldiq har kuni yangilanadi.</span>
       </div>
     </div>
     <div class="footer-contacts">
-      <span class="footer-label">Bog'lanish</span>
+      <span class="footer-label" data-i18n="footer_contacts">Bog'lanish</span>
       <a href="tel:+998979041820" id="footerPhone">+998 97 904 18 20</a>
       <span id="footerTelegram">Telegram: @mardonsodikov</span>
       <span id="footerAddress" style="display:none"></span>
       <span id="footerHours" style="display:none"></span>
       <a href="#" class="footer-studio hidden" id="footerStudioLink">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-        Uy Loyiha Studio — hisob-kitobga qaytish
+        <span data-i18n="footer_studio">Uy Loyiha Studio — hisob-kitobga qaytish</span>
       </a>
     </div>
   </div>
   <div class="wrap footer-bottom">
-    <span>© 2026 Qurilish Bazasi. Barcha huquqlar himoyalangan.</span>
+    <span data-i18n="footer_rights">© 2026 Qurilish Bazasi. Barcha huquqlar himoyalangan.</span>
   </div>
 </footer>
 
+<script src="/lang.js"></script>
 <script src="/cart.js"></script>
 <script src="/favorites.js"></script>
 <script src="/nav-init.js"></script>
+<script src="/business-hours.js"></script>
 <script src="/app.js"></script>
 <script>
 (function(){
@@ -245,6 +316,105 @@
   }, { passive: true });
 
   startTimer();
+})();
+</script>
+<script>if(window.__lang) __lang.apply();</script>
+
+<!-- MOBILE: Bottom Tab Bar -->
+<nav class="mobile-bottom-tab" id="mobileTabBar">
+  <a href="/" class="mbt-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+    <span class="mbt-label">Bosh sahifa</span>
+  </a>
+  <button class="mbt-item" id="mbtCatalog">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    <span class="mbt-label">Katalog</span>
+  </button>
+  <a href="/saqlangan" class="mbt-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <span class="mbt-badge" id="mbtFavBadge"></span>
+    <span class="mbt-label">Saqlangan</span>
+  </a>
+  <a href="/savat" class="mbt-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    <span class="mbt-badge" id="mbtCartBadge"></span>
+    <span class="mbt-label">Savat</span>
+  </a>
+  <button class="mbt-item" id="mbtTheme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    <span class="mbt-label">Rejim</span>
+  </button>
+</nav>
+
+<script>
+(function(){
+  // Mobile tab bar badges
+  function updateMbtBadges(){
+    try {
+      var cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      var favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      var cb = document.getElementById('mbtCartBadge');
+      var fb = document.getElementById('mbtFavBadge');
+      if(cb) cb.textContent = cart.length > 0 ? cart.length : '';
+      if(fb) fb.textContent = favs.length > 0 ? favs.length : '';
+    } catch(e){}
+  }
+  updateMbtBadges();
+  setInterval(updateMbtBadges, 2000);
+
+  // Theme toggle on mobile tab
+  var mbtTheme = document.getElementById('mbtTheme');
+  if(mbtTheme) mbtTheme.addEventListener('click', function(){ if(typeof toggleTheme === 'function') toggleTheme(); });
+
+  // Category sheet
+  var sheetOverlay = document.getElementById('mobileSheetOverlay');
+  var sheet = document.getElementById('mobileCategorySheet');
+  var sheetItems = document.getElementById('mobileSheetItems');
+  var mbtCatalog = document.getElementById('mbtCatalog');
+
+  function openSheet(){
+    if(sheetOverlay) sheetOverlay.classList.add('open');
+    if(sheet) sheet.classList.add('open');
+    buildSheet();
+  }
+  function closeSheet(){
+    if(sheetOverlay) sheetOverlay.classList.remove('open');
+    if(sheet) sheet.classList.remove('open');
+  }
+
+  if(mbtCatalog) mbtCatalog.addEventListener('click', openSheet);
+  if(sheetOverlay) sheetOverlay.addEventListener('click', closeSheet);
+
+  function buildSheet(){
+    if(!sheetItems) return;
+    sheetItems.innerHTML = '';
+    // "Barchasi" item
+    var allBtn = document.createElement('button');
+    allBtn.className = 'sheet-item active';
+    allBtn.innerHTML = '<span class="sheet-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>' + (__lang ? __t('all') : 'Barchasi');
+    allBtn.addEventListener('click', function(){
+      closeSheet();
+      window.location.href = '/?category=';
+    });
+    sheetItems.appendChild(allBtn);
+
+    // Load categories from API
+    fetch('/api/v1/categories').then(function(r){return r.json()}).then(function(j){
+      (j.data||[]).forEach(function(cat){
+        var name = typeof cat === 'string' ? cat : (cat.name_uz || cat.nomi || cat.name || '');
+        var icon = typeof cat === 'string' ? '📦' : (cat.icon || '📦');
+        var btn = document.createElement('button');
+        btn.className = 'sheet-item';
+        btn.innerHTML = '<span class="sheet-icon">' + icon + '</span>' + name;
+        btn.addEventListener('click', function(){
+          closeSheet();
+          window.location.href = '/?category=' + encodeURIComponent(name);
+        });
+        sheetItems.appendChild(btn);
+      });
+    }).catch(function(){});
+  }
 })();
 </script>
 </body>

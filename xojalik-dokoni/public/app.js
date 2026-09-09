@@ -73,6 +73,56 @@ let activeCategory = '';
 let searchTerm = '';
 let searchTimer = null;
 
+// ============ URL params: ?search= and ?category= ============
+(function readUrlParams() {
+  var params = new URLSearchParams(window.location.search);
+  var sq = params.get('search');
+  var cat = params.get('category');
+  if (sq) searchTerm = sq;
+  if (cat) activeCategory = cat;
+})();
+
+// ============ MEGA-MENU: populate categories ============
+function buildMegaMenu(categories) {
+  var megaGrid = document.getElementById('megaGrid');
+  if (!megaGrid) return;
+
+  // Add "Barchasi" item
+  var allItem = document.createElement('a');
+  allItem.className = 'mega-item';
+  allItem.href = '/?category=';
+  allItem.innerHTML = '<span class="cat-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span><span>' + (__lang ? __t('all') : 'Barchasi') + '</span>';
+  megaGrid.appendChild(allItem);
+
+  categories.forEach(function(cat) {
+    var item = document.createElement('a');
+    item.className = 'mega-item';
+    item.href = '/?category=' + encodeURIComponent(cat);
+    item.innerHTML = '<span class="cat-icon">' + categoryIcon(cat) + '</span><span>' + cat + '</span>';
+    megaGrid.appendChild(item);
+  });
+}
+
+function updateUrlCategory(cat) {
+  var url = new URL(window.location);
+  if (cat) {
+    url.searchParams.set('category', cat);
+  } else {
+    url.searchParams.delete('category');
+  }
+  history.pushState({ category: cat }, '', url);
+}
+
+function syncPillActive(cat) {
+  document.querySelectorAll('.pill').forEach(function(p) {
+    if (cat) {
+      p.classList.toggle('active', p.dataset.category === cat);
+    } else {
+      p.classList.toggle('active', p.dataset.category === '');
+    }
+  });
+}
+
 async function loadCategories() {
   const res = await fetch('/api/v1/categories');
   const json = await res.json();
@@ -85,7 +135,7 @@ async function loadCategories() {
 
   const totalCount = allProducts.length;
   const allBtn = wrap.querySelector('.pill[data-category=""]');
-  if (allBtn) allBtn.innerHTML = `${categoryIcon('')}<span>Barchasi (${totalCount})</span>`;
+  if (allBtn) allBtn.innerHTML = `${categoryIcon('')}<span>${__lang ? __t('all') : 'Barchasi'} (${totalCount})</span>`;
 
   json.data.forEach(cat => {
     const btn = document.createElement('button');
@@ -94,19 +144,33 @@ async function loadCategories() {
     btn.innerHTML = `${categoryIcon(cat)}<span>${cat} (${counts[cat] || 0})</span>`;
     btn.addEventListener('click', () => {
       activeCategory = cat;
-      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
+      syncPillActive(cat);
+      updateUrlCategory(cat);
       render();
     });
     wrap.appendChild(btn);
   });
   document.querySelector('.pill[data-category=""]').addEventListener('click', (e) => {
     activeCategory = '';
-    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-    e.target.classList.add('active');
+    syncPillActive('');
+    updateUrlCategory('');
     render();
   });
+
+  // Build mega-menu
+  buildMegaMenu(json.data);
+
+  // Sync active category from URL
+  syncPillActive(activeCategory);
 }
+
+window.addEventListener('popstate', function(e) {
+  var params = new URLSearchParams(window.location.search);
+  var cat = params.get('category') || '';
+  activeCategory = cat;
+  syncPillActive(cat);
+  render();
+});
 
 function skeletonGrid() {
   return Array(8).fill(`
@@ -192,9 +256,17 @@ function clearFilters() {
   const input = document.getElementById('searchInput');
   if (input) input.value = '';
   document.getElementById('searchClearBtn').classList.remove('show');
-  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-  const allBtn = document.querySelector('.pill[data-category=""]');
-  if (allBtn) allBtn.classList.add('active');
+  syncPillActive('');
+  // Also clear nav search
+  var navInput = document.getElementById('navSearchInput');
+  if (navInput) navInput.value = '';
+  var navClear = document.getElementById('searchClear');
+  if (navClear) navClear.classList.remove('show');
+  // Close mega-menu
+  var mega = document.getElementById('categoriesMega');
+  if (mega) mega.classList.remove('open');
+  // Clean URL
+  history.replaceState(null, '', '/');
   render();
 }
 
@@ -260,11 +332,15 @@ async function loadSettings() {
     document.documentElement.style.colorScheme = theme;
     try { localStorage.setItem('store-theme', theme); } catch (e) {}
 
-    // Accent rang
+    // Accent rang (faqat salqin ranglarga ruxsat — sariq, to'q sariq, kulrang blok)
     if (s.accent) {
-      document.documentElement.style.setProperty('--accent', s.accent);
-      document.documentElement.style.setProperty('--accent-2', s.accent === '#0a84ff' ? '#4da3ff' : s.accent);
-      document.documentElement.style.setProperty('--accent-glow', s.accent + '59');
+      var _r = parseInt(s.accent.slice(1,3),16), _g = parseInt(s.accent.slice(3,5),16), _b = parseInt(s.accent.slice(5,7),16);
+      var _isWarm = _r > 180 && _g > 140 && _b < 120 && _r > _b + 60;
+      var safeAccent = _isWarm ? '#0a84ff' : s.accent;
+      var safeAccent2 = safeAccent === '#0a84ff' ? '#4da3ff' : safeAccent;
+      document.documentElement.style.setProperty('--accent', safeAccent);
+      document.documentElement.style.setProperty('--accent-2', safeAccent2);
+      document.documentElement.style.setProperty('--accent-glow', safeAccent + '59');
     }
 
     // Do'kon yopiq banneri

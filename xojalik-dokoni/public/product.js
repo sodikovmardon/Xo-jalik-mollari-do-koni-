@@ -20,7 +20,7 @@ async function loadProduct() {
   const wrap = document.getElementById('detailWrap');
   const res = await fetch('/api/v1/products/' + id);
   if (!res.ok) {
-    wrap.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><h3>Mahsulot topilmadi</h3><p><a href="/" class="btn btn-secondary" style="margin-top:12px">Katalogga qaytish</a></p></div>';
+    wrap.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><h3>Mahsulot topilmadi</h3><p><a href="/" class="btn btn-secondary" style="margin-top:12px">' + (__lang ? __t('back_catalog').replace('← ','') : 'Katalogga qaytish') + '</a></p></div>';
     return;
   }
   const json = await res.json();
@@ -53,7 +53,7 @@ async function loadProduct() {
       '</div>' +
       '<div class="detail-actions">' +
         '<button class="btn btn-primary" id="openOrderBtn" ' + disabled + '>' +
-          (disabled ? 'Hozircha tugagan' : 'Buyurtma berish') +
+          (disabled ? 'Hozircha tugagan' : (__lang ? __t('btn_order') : 'Buyurtma berish')) +
         '</button>' +
         renderCartButton(p) +
       '</div>' +
@@ -93,22 +93,22 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
   const msg = document.getElementById('formMsg');
   msg.className = 'form-msg';
   btn.disabled = true;
-  btn.textContent = 'Yuborilmoqda...';
+  btn.textContent = __lang ? __t('sending') : 'Yuborilmoqda...';
 
   const telInput = document.getElementById('telefon');
   if (typeof isValidPhone === 'function' && !isValidPhone(telInput.value)) {
-    msg.textContent = "Telefon raqamini to'liq kiriting (+998 XX XXX XX XX)";
+    msg.textContent = __lang ? __t('phone_error') : "Telefon raqamini to'liq kiriting (+998 XX XXX XX XX)";
     msg.classList.add('error', 'show');
     btn.disabled = false;
-    btn.textContent = 'Buyurtma berish';
+    btn.textContent = __lang ? __t('btn_order') : 'Buyurtma berish';
     return;
   }
 
   if (document.documentElement.classList.contains('store-closed')) {
-    msg.textContent = "Do'kon hozir yopiq, buyurtma qabul qilinmayapti";
+    msg.textContent = __lang ? (__t('store_closed') + ', buyurtma qabul qilinmayapti') : "Do'kon hozir yopiq, buyurtma qabul qilinmayapti";
     msg.classList.add('error', 'show');
     btn.disabled = false;
-    btn.textContent = 'Buyurtma berish';
+    btn.textContent = __lang ? __t('btn_order') : 'Buyurtma berish';
     return;
   }
 
@@ -143,7 +143,7 @@ document.getElementById('orderForm').addEventListener('submit', async (e) => {
     msg.classList.add('error', 'show');
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Buyurtma berish';
+    btn.textContent = __lang ? __t('btn_order') : 'Buyurtma berish';
   }
 });
 
@@ -177,8 +177,12 @@ async function applySettings() {
     document.documentElement.style.colorScheme = theme;
     try { localStorage.setItem('store-theme', theme); } catch (e) {}
     if (s.accent) {
-      document.documentElement.style.setProperty('--accent', s.accent);
-      document.documentElement.style.setProperty('--accent-2', s.accent === '#0a84ff' ? '#4da3ff' : s.accent);
+      var _r = parseInt(s.accent.slice(1,3),16), _g = parseInt(s.accent.slice(3,5),16), _b = parseInt(s.accent.slice(5,7),16);
+      var _isWarm = _r > 180 && _g > 140 && _b < 120 && _r > _b + 60;
+      var safeAccent = _isWarm ? '#0a84ff' : s.accent;
+      var safeAccent2 = safeAccent === '#0a84ff' ? '#4da3ff' : safeAccent;
+      document.documentElement.style.setProperty('--accent', safeAccent);
+      document.documentElement.style.setProperty('--accent-2', safeAccent2);
     }
     const b = document.getElementById('maintenanceBanner');
     if (b) b.style.display = s.dokon_yopiq ? 'block' : 'none';

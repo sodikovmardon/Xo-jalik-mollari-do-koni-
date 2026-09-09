@@ -257,8 +257,21 @@
 
 @media (max-width: 768px) {
   .admin-header-mobile { display: block; }
+  .admin-top { padding: 12px; flex-wrap: wrap; gap: 8px; }
+  .admin-top h1 { font-size: 18px; }
 }
 @media (max-width: 700px) {
   .order-item-total { display: none; }
   .settings-grid { grid-template-columns: 1fr; }
+  .admin-login { margin: 20px 16px; padding: 20px; }
+  .admin-login input { font-size: 16px; padding: 14px; min-height: 48px; }
+  .admin-login .btn { min-height: 48px; font-size: 15px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-card { padding: 14px; }
+  .stat-card .stat-value { font-size: 22px; }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .orders-table { min-width: 600px; }
+  .modal { padding: 16px; max-height: 95vh; overflow-y: auto; border-radius: 16px; }
+  .modal .field input, .modal .field select { font-size: 16px; padding: 12px; min-height: 48px; }
+  .modal .btn { min-height: 48px; font-size: 15px; }
 }

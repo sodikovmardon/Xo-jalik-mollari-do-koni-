@@ -1,0 +1,279 @@
+/* ===========================================================
+   MOBILE-BOTTOM-NAV — Uzum Market style (768px dan kichik)
+   =========================================================== */
+
+/* Desktopda mobil elementlarni yashirish */
+@media (min-width: 769px) {
+  .mobile-top-bar,
+  .mobile-bottom-tab,
+  .mobile-sheet-overlay,
+  .mobile-category-sheet {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+
+  /* ---- Utility bar butunlay yashirin ---- */
+  .utility-bar { display: none !important; }
+
+  /* ---- Desktop header yashirin ---- */
+  .site-header .nav-search-box { display: none !important; }
+  .site-header .mobile-search-trigger { display: none !important; }
+  .site-header .categories-wrap { display: none !important; }
+  .site-header .nav-action-item { display: none !important; }
+  .site-header .theme-toggle { display: none !important; }
+  .site-header .brand { min-width: auto; }
+  .site-header .brand .brand-sub { display: none !important; }
+  .site-header .wrap {
+    height: auto !important;
+    padding: 8px 14px !important;
+    gap: 10px !important;
+  }
+
+  /* ---- YUQORIDA — oddiy qidiruv paneli ---- */
+  .mobile-top-bar {
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 150;
+    height: 56px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    padding: 0 12px;
+    gap: 10px;
+  }
+
+  .mobile-top-bar .mtb-logo {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .mobile-top-bar .mtb-logo svg { width: 100%; height: 100%; }
+
+  .mobile-top-bar .mtb-search {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0 12px;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+  }
+  .mobile-top-bar .mtb-search::placeholder { color: var(--text-dim); }
+  .mobile-top-bar .mtb-search:focus { border-color: var(--accent); }
+
+  /* ---- BODY OFFSET for fixed bars ---- */
+  body {
+    padding-top: 56px !important;
+    padding-bottom: 64px !important;
+  }
+
+  /* ---- Kategoriya pillslari ---- */
+  .category-pills-wrap {
+    position: relative;
+    margin-top: 56px;
+  }
+  .category-pills-wrap::after { display: none; }
+  .category-pills {
+    margin: 0 !important;
+    padding: 10px 12px !important;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: var(--bg);
+  }
+
+  /* ---- PASTDA — Fixed Tab Bar ---- */
+  .mobile-bottom-tab {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 150;
+    height: 60px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    align-items: stretch;
+    justify-content: space-around;
+    padding: 0 4px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .mbt-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    background: none;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s;
+    min-width: 0;
+  }
+  .mbt-item.active {
+    color: var(--accent);
+  }
+  .mbt-item svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+  .mbt-item .mbt-label {
+    line-height: 1;
+  }
+  .mbt-badge {
+    position: absolute;
+    top: 4px;
+    right: 50%;
+    transform: translateX(12px);
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+    background: var(--danger, #ff375f);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .mbt-badge:empty { display: none; }
+
+  /* ---- Katalog bottom sheet overlay ---- */
+  .mobile-sheet-overlay {
+    display: none !important;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,0.5);
+  }
+  .mobile-sheet-overlay.open {
+    display: block !important;
+  }
+
+  /* ---- Katalog bottom sheet ---- */
+  .mobile-category-sheet {
+    display: none !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 210;
+    background: var(--surface);
+    border-radius: 16px 16px 0 0;
+    max-height: 70vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: sheetSlideUp 0.25s ease-out;
+  }
+  .mobile-category-sheet.open {
+    display: block !important;
+  }
+  @keyframes sheetSlideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .sheet-handle {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 6px;
+  }
+  .sheet-handle::after {
+    content: '';
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  .sheet-title {
+    padding: 4px 16px 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .sheet-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    min-height: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    transition: background 0.15s;
+  }
+  .sheet-item:active { background: rgba(255,255,255,0.06); }
+  .sheet-item .sheet-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+  .sheet-item.active { color: var(--accent); }
+
+  /* ---- Contentlya padding ---- */
+  .wrap { padding-bottom: 24px; }
+  .grid { padding-bottom: 80px; }
+
+  /* ---- Hero qisqartirish ---- */
+  .hero { padding: 16px 0 24px !important; }
+  .hero-inner { gap: 16px !important; }
+  .hero .hero-left { display: none !important; }
+  .hero-carousel { width: 100%; aspect-ratio: 16/9; }
+  .studio-arrival { display: none !important; }
+  .hero-cta-row { display: none !important; }
+  .hero-trust { display: none !important; }
+  .hero-stats { display: none !important; }
+
+  /* ---- Footer ---- */
+  .site-footer { padding-bottom: 72px !important; }
+
+  /* ---- Boshqa sahifalar padding-bottom ---- */
+  .cart-page,
+  .fav-page {
+    padding-bottom: 24px;
+  }
+
+  /* ---- Modal mobilda to'liq kenglikda ---- */
+  .modal {
+    width: calc(100% - 24px) !important;
+    max-height: 85vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

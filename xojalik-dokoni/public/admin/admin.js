@@ -668,10 +668,14 @@ document.getElementById('saveOrderPrefsBtn').addEventListener('click', async () 
 document.getElementById('saveAppearanceBtn').addEventListener('click', async () => {
   const msg = document.getElementById('appearanceMsg');
   msg.className = 'form-msg';
+  var rawAccent = document.getElementById('set_accent').value;
+  // Guard: reject warm/yellow colors, force blue
+  var _r = parseInt(rawAccent.slice(1,3),16), _g = parseInt(rawAccent.slice(3,5),16), _b = parseInt(rawAccent.slice(5,7),16);
+  var safeAccent = (_r > 180 && _g > 140 && _b < 120 && _r > _b + 60) ? '#0a84ff' : rawAccent;
   try {
     await api('/admin/api/settings', { method: 'PUT', body: JSON.stringify({
       tema: document.getElementById('set_tema').checked ? 'light' : 'dark',
-      accent: document.getElementById('set_accent').value
+      accent: safeAccent
     }) });
     msg.textContent = "Saqlandi ✓";
     msg.classList.add('success', 'show');
